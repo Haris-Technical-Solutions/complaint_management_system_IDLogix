@@ -1,4 +1,4 @@
-<div class="col-lg-6  col-md-6">
+<div class="col-lg-6  col-md-6 col-sm-12">
     <div class="card">
         <div class="card-body">
             <h5 class="card-title">{{ cleanLang(__('lang.latest_activity')) }}</h5>
