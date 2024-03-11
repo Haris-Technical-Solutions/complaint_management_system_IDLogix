@@ -14,7 +14,7 @@ function random_string($length = 10) {
 
 /**
  * generate random alphanumeric string
- * [example] U7gf5dD
+ * [example] U7gf5dD 
  * @return string
  */ 
 function str_alphnumeric($length = 10) {
