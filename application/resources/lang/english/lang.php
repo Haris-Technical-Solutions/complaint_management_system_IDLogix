@@ -1027,6 +1027,7 @@ return [
     'please_enter_account_email_address' => "Please enter your account email address below.",
     'please_wait' => "Please wait...",
     'position' => "Position",
+    // '' => "Position",
     'post_a_comment' => "Post a comment",
     'post' => "Post",
     'preferences' => "Preferences",
@@ -1345,13 +1346,13 @@ return [
     'tax_rates' => "Tax Rates",
     'tax' => "Tax",
     'team_emails' => "Team Emails",
-    // bottlers
-    'bottlers' => "Bottlers",
-    'bottler' => "Bottler",
-    'bottler' => "Bottler",
+    // managers
+    'managers' => "Managers",
+    'manager' => "Manager",
+    'manager' => "Manager",
 
-    'team_member' => "Team Member",
-    'team_members' => "Team Members",
+    'team_member' => "Technician",
+    'team_members' => "Technician",
     'team_permissions' => "Team Permissions",
     'team' => "Team",
     'telephone' => "Telephone",

@@ -390,12 +390,12 @@
                         @endif
                     </ul>
 
-                    {{-- bottlers --}}
+                    {{-- managers --}}
                     <ul aria-expanded="false" class="position-top collapse">
                         @if(config('visibility.modules.team'))
                         <li class="sidenav-submenu mainmenu_team {{ $page['submenu_team'] ?? '' }}" id="submenu_team">
-                            <a href="/bottler"
-                                class="{{ $page['submenu_team'] ?? '' }}">{{ cleanLang(__('lang.bottlers')) }}</a>
+                            <a href="/manager"
+                                class="{{ $page['submenu_team'] ?? '' }}">{{ cleanLang(__('lang.managers')) }}</a>
                         </li>
                         @endif
                         {{-- @if(config('visibility.modules.timesheets'))

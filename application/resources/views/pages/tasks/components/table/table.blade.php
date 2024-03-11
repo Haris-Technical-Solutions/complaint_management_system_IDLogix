@@ -12,6 +12,14 @@
                                 data-url="{{ urlResource('/tasks?action=sort&orderby=task_title&sortorder=asc') }}">{{ cleanLang(__('lang.title')) }}<span
                                     class="sorting-icons"><i class="ti-arrows-vertical"></i></span></a>
                         </th>
+                        <th class="tasks_col_team">
+                            {{-- <a class="js-ajax-ux-request js-list-sorting" id="sort_task_title" href="javascript:void(0)"
+                                data-url="{{ urlResource('/tasks?action=sort&orderby=task_title&sortorder=asc') }}"> --}}
+                                {{ cleanLang(__('lang.team')) }}
+                                {{-- <span
+                                    class="sorting-icons"><i class="ti-arrows-vertical"></i></span> --}}
+                                {{-- </a> --}}
+                        </th>
                         @if(config('system.settings_tasks_kanban_client_name') == 'show')
                         <th class="tasks_col_title">
                             <a class="js-ajax-ux-request js-list-sorting" id="sort_task_client_company_name" href="javascript:void(0)"

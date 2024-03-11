@@ -15,6 +15,7 @@ class EditResponse implements Responsable {
     private $payload;
 
     public function __construct($payload = array()) {
+        
         $this->payload = $payload;
     }
 
@@ -32,7 +33,7 @@ class EditResponse implements Responsable {
         }
 
         //render the form
-        $html = view('pages/team/modals/add-edit-inc', compact('page', 'user', 'roles'))->render();
+        $html = view('pages/team/modals/add-edit-inc', compact('page', 'user', 'roles','managers'))->render();
         $jsondata['dom_html'][] = array(
             'selector' => '#commonModalBody',
             'action' => 'replace',

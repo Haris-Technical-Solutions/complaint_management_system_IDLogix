@@ -12,6 +12,6 @@
 
 <!--team table-->
 <div class="card-embed-fix">
-@include('pages.bottlers.components.table.wrapper')
+@include('pages.managers.components.table.wrapper')
 </div>
 <!--team table-->

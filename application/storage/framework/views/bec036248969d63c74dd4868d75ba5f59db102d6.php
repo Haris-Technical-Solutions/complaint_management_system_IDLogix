@@ -24,7 +24,7 @@
 
     <!--show timer-->
     <div id="task-timer-container">
-        <?php echo $__env->make('pages.task.components.timer', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+       
     </div>
 
 
@@ -109,7 +109,7 @@
         <?php endif; ?>
 
         <!--reminder-->
-        <?php if(config('visibility.modules.reminders') && $task->project_type == 'project'): ?>
+        <?php if( config('visibility.modules.reminders') && $task->project_type == 'project'): ?>
         <div class="card-reminders-container" id="card-reminders-container">
             <?php echo $__env->make('pages.reminders.cards.wrapper', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
         </div>
@@ -119,7 +119,7 @@
     </div>
 
     <!----------tags----------->
-    <div class="card-tags-container" id="card-tags-container">
+    <div class="hidden card-tags-container" id="card-tags-container">
         <?php echo $__env->make('pages.task.components.tags', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
     </div>
     <?php endif; ?>
@@ -134,7 +134,7 @@
 
 
     <!--dependencies-->
-    <div class="x-section">
+    <div class="hidden x-section">
         <div class="x-title">
             <h6><?php echo e(cleanLang(__('lang.dependencies'))); ?></h6>
         </div>
@@ -156,7 +156,7 @@
 
         <!--change milestone-->
         <?php if($task->permission_edit_task && auth()->user()->type =='team'): ?>
-        <div class="x-element x-action js-card-settings-button-static" id="card-task-milestone" tabindex="0"
+        <div class="hidden x-element x-action js-card-settings-button-static" id="card-task-milestone" tabindex="0"
             data-popover-content="card-task-milestones" data-title="<?php echo e(cleanLang(__('lang.milestone'))); ?>"><i
                 class="mdi mdi-redo-variant"></i>
             <span class="x-highlight"><?php echo e(cleanLang(__('lang.change_milestone'))); ?></strong></span>
@@ -166,7 +166,7 @@
 
         <!--stop all timer-->
         <?php if($task->permission_super_user && config('visibility.tasks_standard_features')): ?>
-        <div class="x-element x-action confirm-action-danger"
+        <div class="hidden x-element x-action confirm-action-danger"
             data-confirm-title="<?php echo e(cleanLang(__('lang.stop_all_timers'))); ?>"
             data-confirm-text="<?php echo e(cleanLang(__('lang.are_you_sure'))); ?>"
             data-url="<?php echo e(url('/')); ?>/tasks/timer/<?php echo e($task->task_id); ?>/stopall?source=card"><i
@@ -238,7 +238,7 @@
                         <td><?php echo e(cleanLang(__('lang.date_created'))); ?></td>
                         <td><strong><?php echo e(runtimeDate($task->task_created)); ?></strong></td>
                     </tr>
-                    <?php if(auth()->user()->is_team): ?>
+                    <?php if(1==0 && auth()->user()->is_team): ?>
                     <tr>
                         <td><?php echo e(cleanLang(__('lang.total_time'))); ?></td>
                         <td><strong><span id="task_timer_all_card_<?php echo e($task->task_id); ?>"><?php echo clean(runtimeSecondsHumanReadable($task->sum_all_time, false)); ?></span></strong>
@@ -249,13 +249,14 @@
                         <td><strong><span id="task_timer_all_card_<?php echo e($task->task_id); ?>"><?php echo clean(runtimeSecondsHumanReadable($task->sum_invoiced_time, false)); ?></span></strong>
                         </td>
                     </tr>
+                    <?php endif; ?>
                     <tr>
                         <td><?php echo e(cleanLang(__('lang.project'))); ?></td>
                         <td><strong><a href="<?php echo e(urlResource('/projects/'.$task->task_projectid)); ?>"
                                     target="_blank">#<?php echo e($task->project_id); ?></a></strong>
                         </td>
                     </tr>
-                    <?php endif; ?>
+                    
                 </tbody>
             </table>
         </div>

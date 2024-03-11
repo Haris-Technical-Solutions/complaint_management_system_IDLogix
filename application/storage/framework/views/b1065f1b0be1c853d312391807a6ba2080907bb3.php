@@ -18,7 +18,7 @@
     <!--page heading-->
 
     <!--stats panel-->
-    <?php if(auth()->user()->is_team): ?>
+    <?php if(auth()->user()->is_team || auth()->user()->is_client): ?>
     <div class="stats-wrapper " id="tasks-stats-wrapper">
         <?php echo $__env->make('pages.tasks.components.misc.list-pages-stats', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
     </div>

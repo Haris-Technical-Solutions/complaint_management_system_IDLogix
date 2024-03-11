@@ -29,7 +29,7 @@ class User extends Authenticatable {
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password','manager_id'
     ];
 
     /**
@@ -53,6 +53,13 @@ class User extends Authenticatable {
      */
     public function client() {
         return $this->hasOne('App\Models\Client', 'client_id', 'clientid');
+    }
+
+    /**
+     * The tasks that are assigned to the user.
+     */
+    public function manager() {
+        return $this->hasOne('App\Models\User', 'id', 'manager_id');
     }
 
     /**
@@ -160,6 +167,28 @@ class User extends Authenticatable {
     }
 
     /**
+     * check if the user has the role of 'administrator'
+     * @return bool
+     */
+    public function getIsClientAdminAttribute() {
+        if (strtolower($this->role->role_id) == 15) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * check if the user has the role of 'administrator'
+     * @return bool
+     */
+    public function getIsManagerAttribute() {
+        if (strtolower($this->role->role_id) == 17) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
      * check if the user has the type 'client'
      * @return bool
      */
@@ -192,6 +221,13 @@ class User extends Authenticatable {
             return true;
         }
         return false;
+    }
+    public function getManagersAttribute() {
+        return self::where('role_id','=','17')
+        ->where('status','active')
+        ->where('type','team')
+        ->whereNull('deleted')
+        ->get();
     }
 
     /**

@@ -61,12 +61,12 @@ Route::group(['prefix' => 'team'], function () {
 });
 Route::resource('team', 'Team');
 
-// bottlers
-Route::group(['prefix' => 'bottler'], function () {
-    Route::any("/search", "Bottlers@index");
-    Route::get("/updatepreferences", "Bottlers@updatePreferences");
+// managers
+Route::group(['prefix' => 'manager'], function () {
+    Route::any("/search", "Managers@index");
+    Route::get("/updatepreferences", "Managers@updatePreferences");
 });
-Route::resource('bottler', 'Bottler');
+Route::resource('manager', 'Managers');
 
 
 //SETTINGS - USER
@@ -660,12 +660,12 @@ Route::group(['prefix' => 'settings/subscriptions'], function () {
     Route::put("/", "Settings\Subscriptions@update")->middleware(['demoModeCheck']);
 });
 
-//SETTINGS - UNITS
-Route::group(['prefix' => 'settings/units'], function () {
-    Route::get("/", "Settings\Units@index");
-    Route::put("/", "Settings\Units@update")->middleware(['demoModeCheck']);
-});
-Route::resource('settings/units', 'Settings\Units');
+// //SETTINGS - UNITS
+// Route::group(['prefix' => 'settings/units'], function () {
+//     Route::get("/", "Settings\Units@index");
+//     Route::put("/", "Settings\Units@update")->middleware(['demoModeCheck']);
+// });
+// Route::resource('settings/units', 'Settings\Units');
 
 //SETTINGS - TAX RATES
 Route::group(['prefix' => 'settings/taxrates'], function () {
@@ -997,11 +997,11 @@ Route::group(['prefix' => 'setup', 'as' => 'setup'], function () {
 });
 
 //UPDATING MODALS
-Route::group(['prefix' => 'updating'], function () {
-    //version 1.01 - January 2021
-    Route::get("/update-currency-settings", "Updating\Action@showUpdatingCurrencySetting");
-    Route::put("/update-currency-settings", "Updating\Action@updateUpdatingCurrencySetting");
-});
+// Route::group(['prefix' => 'updating'], function () {
+//     //version 1.01 - January 2021
+//     Route::get("/update-currency-settings", "Updating\Action@showUpdatingCurrencySetting");
+//     Route::put("/update-currency-settings", "Updating\Action@updateUpdatingCurrencySetting");
+// });
 
 //IMPORTING - COMMON
 Route::post("/import/uploadfiles", "Fileupload@uploadImportFiles");
@@ -1055,9 +1055,9 @@ Route::get("/appwebmail/prefill", "Webmail\Compose@prefillTemplate");
 Route::resource('settings/webmail/templates', 'Settings\WebmailTemplates');
 
 //REPORTING
-Route::group(['prefix' => 'reports'], function () {
-    Route::get("/financial", "Reports\Financial@index");
-});
+// Route::group(['prefix' => 'reports'], function () {
+//     Route::get("/financial", "Reports\Financial@index");
+// });
 
 //SPACES
 Route::group(['prefix' => 'spaces'], function () {
@@ -1081,23 +1081,23 @@ Route::group(['prefix' => 'messages'], function () {
  * ---------------------------------------------------------------------------------------------------------------*/
 
 //AFFILIATES - USERS
-Route::group(['prefix' => 'cs/affiliates/users'], function () {
-    Route::get("/{id}/changepassword", "CS_Affiliates\Users@editPassword")->where('id', '[0-9]+');
-    Route::put("/{id}/changepassword", "CS_Affiliates\Users@updatePassword")->where('id', '[0-9]+');
-});
-Route::resource('cs/affiliates/users', 'CS_Affiliates\Users');
+// Route::group(['prefix' => 'cs/affiliates/users'], function () {
+//     Route::get("/{id}/changepassword", "CS_Affiliates\Users@editPassword")->where('id', '[0-9]+');
+//     Route::put("/{id}/changepassword", "CS_Affiliates\Users@updatePassword")->where('id', '[0-9]+');
+// });
+// Route::resource('cs/affiliates/users', 'CS_Affiliates\Users');
 
 //AFFILIATES - PROJECTS
 Route::group(['prefix' => 'cs/affiliates/projects'], function () {
 
 });
-Route::resource('cs/affiliates/projects', 'CS_Affiliates\Projects');
+// Route::resource('cs/affiliates/projects', 'CS_Affiliates\Projects');
 
 //AFFILIATES - EARNINGS
 Route::group(['prefix' => 'cs/affiliates/earnings'], function () {
 
 });
-Route::resource('cs/affiliates/earnings', 'CS_Affiliates\Earnings');
+// Route::resource('cs/affiliates/earnings', 'CS_Affiliates\Earnings');
 
 //AFFILATE PROFIT
-Route::get("/cs/affiliate/my/earnings", "CS_Affiliates\Profit@index");
+// Route::get("/cs/affiliate/my/earnings", "CS_Affiliates\Profit@index");

@@ -12,8 +12,11 @@
             title="<?php echo e(cleanLang(__('lang.main_administrator'))); ?>" id="team_admin_<?php echo e($team->id); ?>"></span>
         <?php endif; ?>
     </td>
-    <td class="team_col_position">
-        <?php echo e(str_limit(runtimeCheckBlank($team->position), 20)); ?>
+    
+    <td class="team_col_manager">
+        <?php echo e($team->manager->first_name); ?>
+
+        <?php echo e(runtimeCheckBlank($team->manager->last_name)); ?>
 
     </td>
     <?php if(config('visibility.action_super_user')): ?>

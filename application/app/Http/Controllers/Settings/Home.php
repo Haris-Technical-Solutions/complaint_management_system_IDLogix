@@ -20,6 +20,7 @@ class Home extends Controller {
         /**
      * The settings repository instance.
      */
+
     protected $settingsrepo;
 
     public function __construct(SettingsRepository $settingsrepo) {
@@ -43,7 +44,6 @@ class Home extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function index() {
-
         //crumbs, page data & stats
         $page = $this->pageSettings();
 
@@ -57,7 +57,7 @@ class Home extends Controller {
 
         //show the view
         return new IndexResponse($payload);
-    }
+    } 
     /**
      * basic page setting for this section of the app
      * @param string $section page section (optional)

@@ -43,7 +43,7 @@
                 class="data-toggle-action-tooltip btn btn-outline-danger btn-circle btn-sm confirm-action-danger"
                 data-confirm-title="<?php echo e(cleanLang(__('lang.delete_user'))); ?>"
                 data-confirm-text="<?php echo e(cleanLang(__('lang.are_you_sure'))); ?>" data-ajax-type="DELETE"
-                data-url="<?php echo e(url('/')); ?>/team/<?php echo e($team->id ?? ''); ?>">
+                data-url="<?php echo e(url('/')); ?>/manager/<?php echo e($team->id ?? ''); ?>">
                 <i class="sl-icon-trash"></i>
             </button>
             <?php else: ?>
@@ -57,9 +57,9 @@
             <?php if(runtimeTeamPermissionEdit($team)): ?>
             <button type="button" title="<?php echo e(cleanLang(__('lang.edit'))); ?>"
                 class="data-toggle-action-tooltip btn btn-outline-success btn-circle btn-sm edit-add-modal-button js-ajax-ux-request reset-target-modal-form"
-                data-toggle="modal" data-target="#commonModal" data-url="<?php echo e(urlResource('/bottler/'.$team->id.'/edit')); ?>"
+                data-toggle="modal" data-target="#commonModal" data-url="<?php echo e(urlResource('/manager/'.$team->id.'/edit')); ?>"
                 data-loading-target="commonModalBody" data-modal-title="<?php echo e(cleanLang(__('lang.edit_user'))); ?>"
-                data-action-url="<?php echo e(urlResource('/bottler/'.$team->id)); ?>" data-action-method="PUT"
+                data-action-url="<?php echo e(urlResource('/manager/'.$team->id)); ?>" data-action-method="PUT"
                 data-action-ajax-class="" data-action-ajax-loading-target="team-td-container">
                 <i class="sl-icon-note"></i>
             </button>
@@ -103,4 +103,4 @@
     <?php endif; ?>
 </tr>
 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-<!--each row--><?php /**PATH C:\laragon\www\cms\application\resources\views/pages/bottlers/components/table/ajax.blade.php ENDPATH**/ ?>
+<!--each row--><?php /**PATH C:\laragon\www\cms\application\resources\views/pages/managers/components/table/ajax.blade.php ENDPATH**/ ?>

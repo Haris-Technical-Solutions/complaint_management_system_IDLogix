@@ -9,15 +9,18 @@
                                 id="sort_first_name" href="javascript:void(0)"
                                 data-url="<?php echo e(urlResource('/team?action=sort&orderby=first_name&sortorder=asc')); ?>"><?php echo e(cleanLang(__('lang.first_name'))); ?><span
                                     class="sorting-icons"><i class="ti-arrows-vertical"></i></span></a></th>
-                        <th class="team_col_position"><a class="js-ajax-ux-request js-list-sorting" id="sort_position"
-                                href="javascript:void(0)"
-                                data-url="<?php echo e(urlResource('/team?action=sort&orderby=position&sortorder=asc')); ?>"><?php echo e(cleanLang(__('lang.position'))); ?><span
-                                    class="sorting-icons"><i class="ti-arrows-vertical"></i></span>
+                        
+                        <th class="team_col_position">
+                            
+                            <?php echo e(cleanLang(__('lang.manager'))); ?>
+
+                            
+                        
                         </th>
                         <?php if(config('visibility.action_super_user')): ?>
                         <th class="team_col_role"><a class="js-ajax-ux-request js-list-sorting" id="sort_role_id"
                                 href="javascript:void(0)"
-                                data-url="<?php echo e(urlResource('/team?action=sort&orderby=role_id&sortorder=asc')); ?>"><?php echo e(cleanLang(__('lang.role'))); ?><span
+                                data-url="<?php echo e(urlResource('/technician?action=sort&orderby=role_id&sortorder=asc')); ?>"><?php echo e(cleanLang(__('lang.role'))); ?><span
                                     class="sorting-icons"><i class="ti-arrows-vertical"></i></span>
                         </th>
                         <?php endif; ?>

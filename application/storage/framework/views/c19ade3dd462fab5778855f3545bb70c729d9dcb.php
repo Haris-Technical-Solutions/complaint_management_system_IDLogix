@@ -40,6 +40,30 @@
             <?php endif; ?></a>
         <?php endif; ?>
     </td>
+    <td class="projects_col_team">
+        <!--assigned users-->
+        <?php if(count($task->assigned ?? []) > 0): ?>
+        <?php $__currentLoopData = $task->assigned->take(2); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $user): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+        <img src="<?php echo e($user->avatar); ?>" data-toggle="tooltip" title="<?php echo e($user->first_name); ?>" data-placement="top"
+            alt="<?php echo e($user->first_name); ?>" class="img-circle avatar-xsmall">
+        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+        <?php else: ?>
+        <span>---</span>
+        <?php endif; ?>
+        <!--assigned users-->
+        <!--more users-->
+        <?php if(count($task->assigned ?? []) > 2): ?>
+        <?php $more_users_title = __('lang.assigned_users'); $users = $task->assigned; ?>
+        <?php echo $__env->make('misc.more-users', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+        <?php endif; ?>
+        <!--more users-->
+    </td>
+    <?php if(config('system.settings_tasks_kanban_client_name') == 'show'): ?>
+    <td class="tasks_col_client">
+        <span class="x-strike-through"><a title=""
+                href="<?php echo e(url('/clients/'.$task->client_id)); ?>"><?php echo e(str_limit($task->client_company_name ?? '---', 18)); ?></a></span>
+    </td>
+    <?php endif; ?>
     <?php if(config('visibility.tasks_col_project')): ?>
     <td class="tasks_col_project">
         <span class="x-strike-through"><a title=""

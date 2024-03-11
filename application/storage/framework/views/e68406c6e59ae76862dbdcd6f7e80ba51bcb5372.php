@@ -18,7 +18,7 @@
     <!--page heading-->
 
     <!--stats panel-->
-    <?php if(auth()->user()->is_team): ?>
+    <?php if(auth()->user()->is_team && 1==0): ?>
     <div class="stats-wrapper" id="projects-stats-wrapper">
     <?php echo $__env->make('misc.list-pages-stats', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
     </div>

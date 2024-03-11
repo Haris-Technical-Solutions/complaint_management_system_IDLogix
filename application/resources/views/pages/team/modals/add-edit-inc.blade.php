@@ -54,115 +54,163 @@
         </div>
         <!--position-->
 
-        @if (@request('type') != 'profile')
-        <!--[team][admin] user role-->
-        <div class="form-group row">
-            <label
-                class="col-sm-12 col-lg-3 text-left control-label col-form-label required">{{ cleanLang(__('lang.role')) }}*</label>
+        <!--manager Dropdown-->
+        {{-- <div class="form-group row">
+            <label class="col-sm-12 col-lg-3 text-left control-label col-form-label">{{ cleanLang(__('lang.job_title')) }}</label>
             <div class="col-sm-12 col-lg-9">
-                <select class="select2-basic form-control form-control-sm" id="role_id" name="role_id">
+                <select class="form-control form-control-sm" id="position" name="position">
+                    <option value="">Select Job Title</option>
+                    <option value="Job Title 1" @if(isset($user) && $user->role_id == '16') selected @endif>Manager</option>
+                    <option value="Job Title 2" @if(isset($user) && $user->role_id == '16') selected @endif>Manager</option>
+                </select>
+            </div>
+        </div> --}}
+        <div class="form-group row">
+            <label class="col-sm-12 col-lg-3 text-left control-label col-form-label required">{{ cleanLang(__('lang.manager')) }}*</label>
+            <div class="col-sm-12 col-lg-9">
+                <select class="select2-basic form-control form-control-sm" id="manager_id" name="manager_id">
                     <option></option>
-                    @foreach ($roles as $role)
-                    @if(runtimeTeamCreateAdminPermissions($role->role_id))
-                    <option value="{{ $role->role_id }}" {{ runtimePreselected($role->role_id, $user->role_id ?? '') }}>
-                        {{$role->role_name}}</option>
-                    @endif
+                    @foreach ($managers as $manager)
+                    {{-- @if(runtimeTeamCreateAdminPermissions($manager->id)) --}}
+                    <option value="{{ $manager->id }}" {{ runtimePreselected($manager->id, $user->manager_id ?? '') }}>
+                        {{ucfirst($manager->first_name)}}
+                        
+                        {{ucfirst($manager->last_name)}}
+                    </option>
+                    {{-- @endif --}}
                     @endforeach
                 </select>
             </div>
         </div>
-        <!--[team][admin] user role-->
+
+        @if (@request('type') != 'profile')
+            <!--[team][admin] user role-->
+            {{-- @if(auth()->user()->is_admin || auth()->user()->is_client_admin) --}}
+                <div class="form-group row">
+                    <label
+                        class="col-sm-12 col-lg-3 text-left control-label col-form-label required">{{ cleanLang(__('lang.role')) }}*</label>
+                    <div class="col-sm-12 col-lg-9">
+                        <select class="select2-basic form-control form-control-sm" id="role_id" name="role_id">
+                            <option></option>
+                            @foreach ($roles as $role)
+                                @if (runtimeTeamCreateAdminPermissions($role->role_id) && $role->role_id == 16)
+                                    <option value="{{ $role->role_id }}"
+                                        {{ runtimePreselected($role->role_id, $user->role_id ?? '') }}>
+                                        {{ $role->role_name }}</option>
+                                @endif
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+            {{--@elseif(auth()->user()->is_manager) 
+             <div class="form-group row">
+                <label
+                    class="col-sm-12 col-lg-3 text-left control-label col-form-label required">{{ cleanLang(__('lang.role')) }}*</label>
+                <div class="col-sm-12 col-lg-9">
+                <input type="hidden" value='' name="role_id" id="role_id" readonly class="form-control">
+                <input type="text" value='' name="role_id" id="role_id" readonly class="form-control">
+            </div>
+        </div> --}}
+            {{-- @endif --}}
+            <!--[team][admin] user role-->
         @endif
 
-        @if(isset($page['section']) && $page['section'] == 'edit')
-        <!--preferences-->
-        <div class="spacer row">
-            <div class="col-sm-12 col-lg-8">
-                {{ cleanLang(__('lang.preferences')) }}
-            </div>
-            <div class="col-sm-12 col-lg-4">
-                <div class="switch  text-right">
-                    <label>
-                        <input type="checkbox" name="toggle_social_profile" id="toggle_social_preferences"
-                            class="js-switch-toggle-hidden-content" data-target="preferences_section">
-                        <span class="lever switch-col-light-blue"></span>
-                    </label>
+        @if (isset($page['section']) && $page['section'] == 'edit')
+            <!--preferences-->
+            <div class="spacer row">
+                <div class="col-sm-12 col-lg-8">
+                    {{ cleanLang(__('lang.preferences')) }}
+                </div>
+                <div class="col-sm-12 col-lg-4">
+                    <div class="switch  text-right">
+                        <label>
+                            <input type="checkbox" name="toggle_social_profile" id="toggle_social_preferences"
+                                class="js-switch-toggle-hidden-content" data-target="preferences_section">
+                            <span class="lever switch-col-light-blue"></span>
+                        </label>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="hidden" id="preferences_section">
-            <div class="form-group form-group-checkbox row">
-                <label class="col-4 col-form-label text-left">{{ cleanLang(__('lang.email_notifications')) }}</label>
-                <div class="col-8 text-left p-t-5">
-                    <input type="checkbox" id="pref_email_notifications" name="pref_email_notifications"
-                        class="filled-in chk-col-light-blue"
-                        {{ runtimePrechecked($user->pref_email_notifications ?? '') }}>
-                    <label for="pref_email_notifications"></label>
+            <div class="hidden" id="preferences_section">
+                <div class="form-group form-group-checkbox row">
+                    <label
+                        class="col-4 col-form-label text-left">{{ cleanLang(__('lang.email_notifications')) }}</label>
+                    <div class="col-8 text-left p-t-5">
+                        <input type="checkbox" id="pref_email_notifications" name="pref_email_notifications"
+                            class="filled-in chk-col-light-blue"
+                            {{ runtimePrechecked($user->pref_email_notifications ?? '') }}>
+                        <label for="pref_email_notifications"></label>
+                    </div>
                 </div>
             </div>
-        </div>
-        <!--/#preferences-->
+            <!--/#preferences-->
         @endif
 
-        @if(1==0 && isset($page['section']) && $page['section'] == 'edit') <!--Added By Sher Ali --Social Info -->
-        <!--social profile-->
-        <div class="spacer row">
-            <div class="col-sm-12 col-lg-8">
-                {{ cleanLang(__('lang.social_profile')) }}
-            </div>
-            <div class="col-sm-12 col-lg-4">
-                <div class="switch  text-right">
-                    <label>
-                        <input type="checkbox" name="toggle_social_profile" id="toggle_social_profile"
-                            class="js-switch-toggle-hidden-content" data-target="social_profile_section">
-                        <span class="lever switch-col-light-blue"></span>
-                    </label>
+        @if (1 == 0 && isset($page['section']) && $page['section'] == 'edit')
+            <!--Added By Sher Ali --Social Info -->
+            <!--social profile-->
+            <div class="spacer row">
+                <div class="col-sm-12 col-lg-8">
+                    {{ cleanLang(__('lang.social_profile')) }}
+                </div>
+                <div class="col-sm-12 col-lg-4">
+                    <div class="switch  text-right">
+                        <label>
+                            <input type="checkbox" name="toggle_social_profile" id="toggle_social_profile"
+                                class="js-switch-toggle-hidden-content" data-target="social_profile_section">
+                            <span class="lever switch-col-light-blue"></span>
+                        </label>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="hidden" id="social_profile_section">
-            <!--twitter-->
-            <div class="form-group row">
-                <label class="col-sm-12 col-lg-3 text-left control-label col-form-label">Twitter</label>
-                <div class="col-sm-12 col-lg-9">
-                    <input type="text" class="form-control form-control-sm" id="social_twitter" name="social_twitter"
-                        value="{{ $user->social_twitter ?? '' }}" placeholder="https://twitter.com">
+            <div class="hidden" id="social_profile_section">
+                <!--twitter-->
+                <div class="form-group row">
+                    <label class="col-sm-12 col-lg-3 text-left control-label col-form-label">Twitter</label>
+                    <div class="col-sm-12 col-lg-9">
+                        <input type="text" class="form-control form-control-sm" id="social_twitter"
+                            name="social_twitter" value="{{ $user->social_twitter ?? '' }}"
+                            placeholder="https://twitter.com">
+                    </div>
+                </div>
+                <!--facebook-->
+                <div class="form-group row">
+                    <label class="col-sm-12 col-lg-3 text-left control-label col-form-label">Facebook</label>
+                    <div class="col-sm-12 col-lg-9">
+                        <input type="text" class="form-control form-control-sm" id="social_facebook"
+                            name="social_facebook" value="{{ $user->social_facebook ?? '' }}"
+                            placeholder="https://www.facebook.com">
+                    </div>
+                </div>
+                <!--linkedin-->
+                <div class="form-group row">
+                    <label class="col-sm-12 col-lg-3 text-left control-label col-form-label">LinkedIn</label>
+                    <div class="col-sm-12 col-lg-9">
+                        <input type="text" class="form-control form-control-sm" id="social_linkedin"
+                            name="social_linkedin" value="{{ $user->social_linkedin ?? '' }}"
+                            placeholder="https://www.linkedin.com">
+                    </div>
+                </div>
+                <!--github-->
+                <div class="form-group row">
+                    <label class="col-sm-12 col-lg-3 text-left control-label col-form-label">Github</label>
+                    <div class="col-sm-12 col-lg-9">
+                        <input type="text" class="form-control form-control-sm" id="social_github"
+                            name="social_github" value="{{ $user->social_github ?? '' }}"
+                            placeholder="https://github.com">
+                    </div>
+                </div>
+                <!--dribble-->
+                <div class="form-group row">
+                    <label class="col-sm-12 col-lg-3 text-left control-label col-form-label">Dribble</label>
+                    <div class="col-sm-12 col-lg-9">
+                        <input type="text" class="form-control form-control-sm" id="social_dribble"
+                            name="social_dribble" value="{{ $user->social_dribble ?? '' }}"
+                            placeholder="https://dribble.com">
+                    </div>
                 </div>
             </div>
-            <!--facebook-->
-            <div class="form-group row">
-                <label class="col-sm-12 col-lg-3 text-left control-label col-form-label">Facebook</label>
-                <div class="col-sm-12 col-lg-9">
-                    <input type="text" class="form-control form-control-sm" id="social_facebook" name="social_facebook"
-                        value="{{ $user->social_facebook ?? '' }}" placeholder="https://www.facebook.com">
-                </div>
-            </div>
-            <!--linkedin-->
-            <div class="form-group row">
-                <label class="col-sm-12 col-lg-3 text-left control-label col-form-label">LinkedIn</label>
-                <div class="col-sm-12 col-lg-9">
-                    <input type="text" class="form-control form-control-sm" id="social_linkedin" name="social_linkedin"
-                        value="{{ $user->social_linkedin ?? '' }}" placeholder="https://www.linkedin.com">
-                </div>
-            </div>
-            <!--github-->
-            <div class="form-group row">
-                <label class="col-sm-12 col-lg-3 text-left control-label col-form-label">Github</label>
-                <div class="col-sm-12 col-lg-9">
-                    <input type="text" class="form-control form-control-sm" id="social_github" name="social_github"
-                        value="{{ $user->social_github ?? '' }}" placeholder="https://github.com">
-                </div>
-            </div>
-            <!--dribble-->
-            <div class="form-group row">
-                <label class="col-sm-12 col-lg-3 text-left control-label col-form-label">Dribble</label>
-                <div class="col-sm-12 col-lg-9">
-                    <input type="text" class="form-control form-control-sm" id="social_dribble" name="social_dribble"
-                        value="{{ $user->social_dribble ?? '' }}" placeholder="https://dribble.com">
-                </div>
-            </div>
-        </div>
-        <!--social profile-->
+            <!--social profile-->
         @endif
 
         <!--pass source-->

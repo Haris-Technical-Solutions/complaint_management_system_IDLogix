@@ -12,6 +12,20 @@
                                 data-url="<?php echo e(urlResource('/tasks?action=sort&orderby=task_title&sortorder=asc')); ?>"><?php echo e(cleanLang(__('lang.title'))); ?><span
                                     class="sorting-icons"><i class="ti-arrows-vertical"></i></span></a>
                         </th>
+                        <th class="tasks_col_team">
+                            
+                                <?php echo e(cleanLang(__('lang.team'))); ?>
+
+                                
+                                
+                        </th>
+                        <?php if(config('system.settings_tasks_kanban_client_name') == 'show'): ?>
+                        <th class="tasks_col_title">
+                            <a class="js-ajax-ux-request js-list-sorting" id="sort_task_client_company_name" href="javascript:void(0)"
+                                data-url="<?php echo e(urlResource('/tasks?action=sort&orderby=task_client_company_name&sortorder=asc')); ?>"><?php echo e(cleanLang(__('lang.client'))); ?><span
+                                    class="sorting-icons"><i class="ti-arrows-vertical"></i></span></a>
+                        </th>
+                        <?php endif; ?>
                         <?php if(config('visibility.tasks_col_project')): ?>
                         <th class="tasks_col_title">
                             <a class="js-ajax-ux-request js-list-sorting" id="sort_task_project" href="javascript:void(0)"

@@ -1345,10 +1345,10 @@ return [
     'tax_rates' => "Tax Rates",
     'tax' => "Tax",
     'team_emails' => "Team Emails",
-    // bottlers
-    'bottlers' => "Bottlers",
-    'bottler' => "Bottler",
-    'bottler' => "Bottler",
+    // managers
+    'managers' => "Managers",
+    'manager' => "Manager",
+    'manager' => "Manager",
 
     'team_member' => "Team Member",
     'team_members' => "Team Members",

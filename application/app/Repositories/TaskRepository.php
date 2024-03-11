@@ -166,7 +166,6 @@ class TaskRepository {
         if (request('filter_project_type') == 'project') {
             $tasks->where('task_projectid', '>', 0);
         }
-
         //apply filters
         if ($data['apply_filters']) {
 
@@ -290,6 +289,10 @@ class TaskRepository {
             if (request()->filled('filter_manager_tasks') ) {
                 $tasks->where('projects_manager.projectsmanager_userid',auth()->id());
             }
+        }
+
+        if(isset($data['dashboard'])){
+            return $tasks->where('task_status',1)->orderByDesc('task_id')->take(15)->get();
         }
 
         //custom fields filtering

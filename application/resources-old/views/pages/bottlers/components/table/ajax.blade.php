@@ -51,9 +51,9 @@
             @if(runtimeTeamPermissionEdit($team))
             <button type="button" title="{{ cleanLang(__('lang.edit')) }}"
                 class="data-toggle-action-tooltip btn btn-outline-success btn-circle btn-sm edit-add-modal-button js-ajax-ux-request reset-target-modal-form"
-                data-toggle="modal" data-target="#commonModal" data-url="{{ urlResource('/bottler/'.$team->id.'/edit') }}"
+                data-toggle="modal" data-target="#commonModal" data-url="{{ urlResource('/manager/'.$team->id.'/edit') }}"
                 data-loading-target="commonModalBody" data-modal-title="{{ cleanLang(__('lang.edit_user')) }}"
-                data-action-url="{{ urlResource('/bottler/'.$team->id) }}" data-action-method="PUT"
+                data-action-url="{{ urlResource('/manager/'.$team->id) }}" data-action-method="PUT"
                 data-action-ajax-class="" data-action-ajax-loading-target="team-td-container">
                 <i class="sl-icon-note"></i>
             </button>

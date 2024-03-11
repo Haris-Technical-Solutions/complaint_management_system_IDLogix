@@ -28,12 +28,14 @@
                                     class="sorting-icons"><i class="ti-arrows-vertical"></i></span></a>
                         </th>
                         <?php endif; ?>
+                        <?php if(config('visibility.modules.invoices')): ?>
                         <th class="clients_col_invoices">
                             <a class="js-ajax-ux-request js-list-sorting" id="sort_sum_invoices"
                                 href="javascript:void(0)"
                                 data-url="<?php echo e(urlResource('/clients?action=sort&orderby=sum_invoices&sortorder=asc')); ?>"><?php echo e(cleanLang(__('lang.invoices'))); ?><span
                                     class="sorting-icons"><i class="ti-arrows-vertical"></i></span></a>
                         </th>
+                        <?php endif; ?>
                         <th class="clients_col_tags"><a href="javascript:void(0)"><?php echo e(cleanLang(__('lang.tags'))); ?></a>
                         </th>
                         <th class="clients_col_category">

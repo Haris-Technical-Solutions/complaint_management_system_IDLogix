@@ -7,34 +7,34 @@
                     <tr>
                         <th class="team_col_first_name"><a class="js-ajax-ux-request js-list-sorting"
                                 id="sort_first_name" href="javascript:void(0)"
-                                data-url="{{ urlResource('/bottler?action=sort&orderby=first_name&sortorder=asc') }}">{{ cleanLang(__('lang.first_name')) }}<span
+                                data-url="{{ urlResource('/manager?action=sort&orderby=first_name&sortorder=asc') }}">{{ cleanLang(__('lang.first_name')) }}<span
                                     class="sorting-icons"><i class="ti-arrows-vertical"></i></span></a></th>
                         <th class="team_col_position"><a class="js-ajax-ux-request js-list-sorting" id="sort_position"
                                 href="javascript:void(0)"
-                                data-url="{{ urlResource('/bottler?action=sort&orderby=position&sortorder=asc') }}">{{ cleanLang(__('lang.position')) }}<span
+                                data-url="{{ urlResource('/manager?action=sort&orderby=position&sortorder=asc') }}">{{ cleanLang(__('lang.position')) }}<span
                                     class="sorting-icons"><i class="ti-arrows-vertical"></i></span>
                         </th>
                         @if(config('visibility.action_super_user'))
                         <th class="team_col_role"><a class="js-ajax-ux-request js-list-sorting" id="sort_role_id"
                                 href="javascript:void(0)"
-                                data-url="{{ urlResource('/bottler?action=sort&orderby=role_id&sortorder=asc') }}">{{ cleanLang(__('lang.role')) }}<span
+                                data-url="{{ urlResource('/manager?action=sort&orderby=role_id&sortorder=asc') }}">{{ cleanLang(__('lang.role')) }}<span
                                     class="sorting-icons"><i class="ti-arrows-vertical"></i></span>
                         </th>
                         @endif
                         <th class="team_col_email"><a class="js-ajax-ux-request js-list-sorting" id="sort_email"
                                 href="javascript:void(0)"
-                                data-url="{{ urlResource('/bottler?action=sort&orderby=email&sortorder=asc') }}">{{ cleanLang(__('lang.email')) }}<span
+                                data-url="{{ urlResource('/manager?action=sort&orderby=email&sortorder=asc') }}">{{ cleanLang(__('lang.email')) }}<span
                                     class="sorting-icons"><i class="ti-arrows-vertical"></i></span>
                         </th>
                         <th class="team_col_phone"><a class="js-ajax-ux-request js-list-sorting" id="sort_phone"
                                 href="javascript:void(0)"
-                                data-url="{{ urlResource('/bottler?action=sort&orderby=phone&sortorder=asc') }}">{{ cleanLang(__('lang.phone')) }}<span
+                                data-url="{{ urlResource('/manager?action=sort&orderby=phone&sortorder=asc') }}">{{ cleanLang(__('lang.phone')) }}<span
                                     class="sorting-icons"><i class="ti-arrows-vertical"></i></span>
                         </th>
                         @if(config('visibility.action_super_user'))
                         <th class="team_col_last_active"><a class="js-ajax-ux-request js-list-sorting"
                                 id="sort_last_seen" href="javascript:void(0)"
-                                data-url="{{ urlResource('/bottler?action=sort&orderby=last_seen&sortorder=asc') }}">{{ cleanLang(__('lang.last_seen')) }}<span
+                                data-url="{{ urlResource('/manager?action=sort&orderby=last_seen&sortorder=asc') }}">{{ cleanLang(__('lang.last_seen')) }}<span
                                     class="sorting-icons"><i class="ti-arrows-vertical"></i></span></th>
                         @endif
                         @if(config('visibility.action_super_user'))
@@ -45,7 +45,7 @@
                 </thead>
                 <tbody id="team-td-container">
                     <!--ajax content here-->
-                    @include('pages.bottlers.components.table.ajax')
+                    @include('pages.managers.components.table.ajax')
                     <!--ajax content here-->
                 </tbody>
                 <tfoot>

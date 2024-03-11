@@ -9,7 +9,7 @@
                     <h3 id="stats-widget-value-1"><?php echo e($stat['value'] ?? ''); ?></h3>
                     <h6 class="card-subtitle" id="stats-widget-title-1"><?php echo e($stat['title'] ?? ''); ?></h6>
                 </div>
-
+ 
             </div>
             <div class="progress dynamic-list">
                 <div class="progress-bar <?php echo e($stat['color'] ?? ''); ?> h-px-4 w-100" id="stats-widget-percentage-1"

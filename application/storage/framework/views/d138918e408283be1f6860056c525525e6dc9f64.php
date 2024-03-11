@@ -50,7 +50,7 @@
 
 
                 <!--update progress-->
-                <a class="dropdown-item actions-modal-button js-ajax-ux-request reset-target-modal-form"
+                <a class="hidden dropdown-item actions-modal-button js-ajax-ux-request reset-target-modal-form"
                     href="javascript:void(0)" data-toggle="modal" data-target="#actionsModal"
                     data-modal-title="<?php echo e(cleanLang(__('lang.update_progress'))); ?>"
                     data-url="<?php echo e(url('/projects/'.$project->project_id.'/progress?ref=page')); ?>"
@@ -77,7 +77,7 @@
                     data-loading-target="actionsModalBody" data-action-method="POST">
                     <?php echo e(cleanLang(__('lang.change_status'))); ?></a>
                 <!--stop all timers-->
-                <a href="javascript:void(0)" class="dropdown-item confirm-action-danger"
+                <a href="javascript:void(0)" class="hidden dropdown-item confirm-action-danger"
                     data-confirm-title="<?php echo e(cleanLang(__('lang.stop_all_timers'))); ?>"
                     data-confirm-text="<?php echo e(cleanLang(__('lang.are_you_sure'))); ?>" data-ajax-type="PUT"
                     data-url="<?php echo e(urlResource('/projects/'.$project->project_id.'/stop-all-timers')); ?>">
@@ -108,20 +108,11 @@
                 <?php endif; ?>
 
 
-                <!--change cover image-->
-                <?php if(config('visibility.edit_project_cover_image')): ?>
-                <a class="dropdown-item js-ajax-ux-request edit-add-modal-button js-ajax-ux-request reset-target-modal-form"
-                    href="javascript:void(0)" data-toggle="modal" data-target="#commonModal"
-                    data-modal-title="<?php echo e(cleanLang(__('lang.change_cover_image'))); ?>"
-                    data-url="<?php echo e(urlResource('/projects/'.$project->project_id.'/change-cover-image')); ?>"
-                    data-action-url="<?php echo e(urlResource('/projects/'.$project->project_id.'/change-cover-image')); ?>"
-                    data-loading-target="commonModalBody" data-action-method="POST">
-                    <?php echo e(cleanLang(__('lang.change_cover_image'))); ?></a>
-                <?php endif; ?>
+               
 
                 <!--automation-->
                 <a href="javascript:void(0)"
-                    class="dropdown-item edit-add-modal-button js-ajax-ux-request reset-target-modal-form"
+                    class="hidden dropdown-item edit-add-modal-button js-ajax-ux-request reset-target-modal-form"
                     data-toggle="modal" data-target="#commonModal"
                     data-url="<?php echo e(urlResource('/projects/'.$project->project_id.'/edit-automation?ref=list')); ?>"
                     data-loading-target="commonModalBody" data-modal-title="<?php echo app('translator')->get('lang.project_automation'); ?>"

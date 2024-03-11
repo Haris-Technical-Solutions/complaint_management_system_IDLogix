@@ -74,16 +74,16 @@
 
             
             <div class="form-group row">
-                <label class="col-sm-12 col-lg-3 text-left control-label col-form-label required">{{ cleanLang(__('lang.bottler')) }}*</label>
+                <label class="col-sm-12 col-lg-3 text-left control-label col-form-label required">{{ cleanLang(__('lang.manager')) }}*</label>
                 <div class="col-sm-12 col-lg-9">
-                    <select class="select2-basic form-control form-control-sm" id="bottler_id" name="bottler_id">
+                    <select class="select2-basic form-control form-control-sm" id="manager_id" name="manager_id">
                         <option></option>
-                        @foreach ($bottlers as $bottler)
-                        @if(runtimeTeamCreateAdminPermissions($bottler->id))
-                        <option value="{{ $bottler->id }}" {{ runtimePreselected($bottler->id, $user->bottler_id ?? '') }}>
-                            {{ucfirst($bottler->first_name)}}
+                        @foreach ($managers as $manager)
+                        @if(runtimeTeamCreateAdminPermissions($manager->id))
+                        <option value="{{ $manager->id }}" {{ runtimePreselected($manager->id, $user->manager_id ?? '') }}>
+                            {{ucfirst($manager->first_name)}}
                             
-                            {{ucfirst($bottler->last_name)}}
+                            {{ucfirst($manager->last_name)}}
                         </option>
                         @endif
                         @endforeach

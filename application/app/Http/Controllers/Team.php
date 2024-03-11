@@ -77,7 +77,7 @@ class Team extends Controller {
 
     /**
      * Display a listing of team
-     * @return \Illuminate\Http\Response
+
      */
     public function index() {
 
@@ -85,6 +85,7 @@ class Team extends Controller {
         request()->merge([
             'type' => 'team',
             'status' => 'active',
+            'view_role_id' => ['16'],
         ]);
         $users = $this->userrepo->search();
 
@@ -100,7 +101,7 @@ class Team extends Controller {
 
     /**
      * Show the form for creating a new team member
-     * @return \Illuminate\Http\Response
+
      */
     public function create() {
 
@@ -110,6 +111,7 @@ class Team extends Controller {
         //reponse payload
         $payload = [
             'page' => $this->pageSettings('create'),
+            'managers' => $this->userrepo->users->managers,
             'roles' => $roles,
         ];
 
@@ -119,7 +121,7 @@ class Team extends Controller {
 
     /**
      * Store a newly created team member in storage.
-     * @return \Illuminate\Http\Response
+
      */
     public function store() {
 
@@ -132,6 +134,8 @@ class Team extends Controller {
             'last_name' => 'required',
             'email' => 'required|email|unique:users,email',
             'role_id' => 'required|exists:roles,role_id',
+            'manager_id' => 'required|exists:users,id',
+            // 'manager_id' => 
         ], $messages);
 
         //errors
@@ -151,7 +155,10 @@ class Team extends Controller {
         }
 
         //set other data
-        request()->merge(['type' => 'team']);
+        request()->merge([
+            'type' => 'team',
+            // 'role_id' => '17',
+        ]);
 
         //save
         $password = str_random(9);
@@ -203,7 +210,7 @@ class Team extends Controller {
     /**
      * Show the form for editing the specified team member
      * @param int $id team member id
-     * @return \Illuminate\Http\Response
+
      */
     public function edit($id) {
 
@@ -221,6 +228,7 @@ class Team extends Controller {
         //reponse payload
         $payload = [
             'page' => $this->pageSettings('edit'),
+            'managers' => $this->userrepo->users->managers,
             'roles' => $roles,
             'user' => $user,
         ];
@@ -233,7 +241,7 @@ class Team extends Controller {
     /**
      * Update profile
      * @param int $id team member id
-     * @return \Illuminate\Http\Response
+
      */
     public function update($id) {
 
@@ -260,6 +268,8 @@ class Team extends Controller {
             ],
             'role_id' => 'nullable|exists:roles,role_id',
             'password' => 'nullable|confirmed|min:5',
+            'manager_id' => 'required|exists:users,id',
+
         ], $messages);
 
         //validation errors
@@ -303,7 +313,7 @@ class Team extends Controller {
     /**
      * Remove the specified team member from storage.
      * @param int $id team member id
-     * @return \Illuminate\Http\Response
+
      */
     public function destroy($id) {
 

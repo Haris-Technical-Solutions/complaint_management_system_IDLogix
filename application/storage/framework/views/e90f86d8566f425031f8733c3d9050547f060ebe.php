@@ -159,4 +159,4 @@
             </div>
         </div>
     </div>
-</div><?php /**PATH C:\laragon\www\cms\application\resources\views/pages/bottlers/modals/add-edit-inc.blade.php ENDPATH**/ ?>
+</div><?php /**PATH C:\laragon\www\cms\application\resources\views/pages/managers/modals/add-edit-inc.blade.php ENDPATH**/ ?>

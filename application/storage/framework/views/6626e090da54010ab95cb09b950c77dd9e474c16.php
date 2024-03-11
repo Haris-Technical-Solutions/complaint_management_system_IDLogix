@@ -13,9 +13,18 @@
     data-action-url="<?php echo e(urlResource('/projects/'.$project->project_id.'/change-status?filter_category='.request('filter_category'))); ?>"
     data-loading-target="actionsModalBody" data-action-method="POST">
     <?php echo e(cleanLang(__('lang.change_status'))); ?></a>
-
+ <!--change cover image-->
+ <?php if(config('visibility.edit_project_cover_image')): ?>
+<a class=" dropdown-item js-ajax-ux-request edit-add-modal-button js-ajax-ux-request reset-target-modal-form"
+    href="javascript:void(0)" data-toggle="modal" data-target="#commonModal"
+    data-modal-title="<?php echo e(cleanLang(__('lang.change_cover_image'))); ?>"
+    data-url="<?php echo e(urlResource('/projects/'.$project->project_id.'/change-cover-image')); ?>"
+    data-action-url="<?php echo e(urlResource('/projects/'.$project->project_id.'/change-cover-image')); ?>"
+    data-loading-target="commonModalBody" data-action-method="POST">
+    <?php echo e(cleanLang(__('lang.change_cover_image'))); ?></a>
+<?php endif; ?>
 <!--update progress-->
-<a class="dropdown-item actions-modal-button js-ajax-ux-request reset-target-modal-form" href="javascript:void(0)"
+<a class="hidden dropdown-item actions-modal-button js-ajax-ux-request reset-target-modal-form" href="javascript:void(0)"
     data-toggle="modal" data-target="#actionsModal" data-modal-title="<?php echo e(cleanLang(__('lang.update_progress'))); ?>"
     data-url="<?php echo e(url('/projects/'.$project->project_id.'/progress?ref=list')); ?>"
     data-action-url="<?php echo e(url('/projects/'.$project->project_id.'/progress?ref=list&filter_category='.request('filter_category'))); ?>"
@@ -23,7 +32,7 @@
     <?php echo e(cleanLang(__('lang.update_progress'))); ?></a>
 
 <!--stop all timers-->
-<a class="dropdown-item confirm-action-danger" data-confirm-title="<?php echo e(cleanLang(__('lang.stop_all_timers'))); ?>"
+<a class="hidden dropdown-item confirm-action-danger" data-confirm-title="<?php echo e(cleanLang(__('lang.stop_all_timers'))); ?>"
     data-confirm-text="<?php echo e(cleanLang(__('lang.are_you_sure'))); ?>" data-ajax-type="PUT"
     data-url="<?php echo e(urlResource('/projects/'.$project->project_id.'/stop-all-timers')); ?>">
     <?php echo e(cleanLang(__('lang.stop_all_timers'))); ?>
@@ -63,7 +72,7 @@
 
 
 <!--automation-->
-<a href="javascript:void(0)" class="dropdown-item edit-add-modal-button js-ajax-ux-request reset-target-modal-form"
+<a href="javascript:void(0)" class="hidden dropdown-item edit-add-modal-button js-ajax-ux-request reset-target-modal-form"
     data-toggle="modal" data-target="#commonModal"
     data-url="<?php echo e(urlResource('/projects/'.$project->project_id.'/edit-automation?ref=list')); ?>"
     data-loading-target="commonModalBody" data-modal-title="<?php echo app('translator')->get('lang.project_automation'); ?>"

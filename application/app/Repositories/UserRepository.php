@@ -19,7 +19,7 @@ class UserRepository {
     /**
      * The users repository instance.
      */
-    protected $users;
+    public $users;
 
     /**
      * Inject dependecies
@@ -31,7 +31,7 @@ class UserRepository {
     /**
      * get a single user from the database
      * @param int $id record id
-     * @return object
+     *  object
      */
     public function get($id = '') {
 
@@ -56,7 +56,7 @@ class UserRepository {
     /**
      * chec if a user exists
      * @param int $id The user id
-     * @return bool
+     *  bool
      */
     public function exists($id = '') {
 
@@ -77,7 +77,7 @@ class UserRepository {
     /**
      * Search model
      * @param int $id optional for getting a single, specified record
-     * @return object user collection
+     *  object user collection
      */
     public function search($id = '') {
 
@@ -98,6 +98,16 @@ class UserRepository {
         //filter: status
         if (request()->filled('status')) {
             $users->where('status', request('status'));
+        }
+
+        //filter: status
+        if (request()->filled('view_role_id')) {
+            $users->whereIn('role_id', request('view_role_id'));
+        }
+
+        //filter: status
+        if (request()->filled('exclude_role_id')) {
+            $users->where('role_id','!=', request('exclude_role_id'));
         }
 
         //filter: id
@@ -192,7 +202,7 @@ class UserRepository {
      * Update a users preferences
      * e.g. left menu position, stats panel position etc
      * @param int $id users id
-     * @return bool
+     *  bool
      */
     public function updatePreferences($id = '') {
 
@@ -247,7 +257,7 @@ class UserRepository {
      * @param string $password bcrypted password
      * @param string $type team or client
      * @param string $returning return id|obj
-     * @return bool
+     *  bool
      */
     public function create($password = '', $returning = 'id') {
 
@@ -264,6 +274,7 @@ class UserRepository {
         $user->role_id = request('role_id');
         $user->creatorid = Auth()->user()->id;
         $user->unique_id = str_unique();
+        $user->manager_id = request('manager_id');
 
         //password
         if ($password != '') {
@@ -321,7 +332,7 @@ class UserRepository {
      * Create a new user via the client signup form
      * @param string $password bcrypted password
      * @param string $type team or client
-     * @return bool
+     *  bool
      */
     public function signUp($clientId = '') {
 
@@ -359,7 +370,7 @@ class UserRepository {
     /**
      * update a user record
      * @param int $id user id
-     * @return bool
+     *  bool
      */
     public function update($id) {
 
@@ -402,6 +413,10 @@ class UserRepository {
         if (request('role_id') != '') {
             $user->role_id = request('role_id');
         }
+        if (request('manager_id') != '') {
+            $user->manager_id = request('manager_id');
+        }
+
 
         //save changes
         if ($user->save()) {
@@ -416,7 +431,7 @@ class UserRepository {
      * autocomplete feed for user names
      * @param string $type (team|client)
      * @param string $searchterm
-     * @return array
+     *  array
      */
     public function autocompleteNames($type = '', $searchterm = '') {
 
@@ -444,7 +459,7 @@ class UserRepository {
      * autocomplete feed for email addresses
      * @param string $type (team|client)
      * @param string $searchterm
-     * @return array
+     *  array
      */
     public function autocompleteEmail($type = '', $searchterm = '') {
 
@@ -471,7 +486,7 @@ class UserRepository {
 
     /**
      * get all team members who can receive estimate emails
-     * @return object
+     *  object
      */
     public function mailingListTeamEstimates($notification_type = '') {
 
@@ -509,7 +524,7 @@ class UserRepository {
 
     /**
      * get all team members who can receive invoice & payments emails
-     * @return object
+     *  object
      */
     public function mailingListInvoices($notification_type = '') {
 
@@ -547,7 +562,7 @@ class UserRepository {
 
     /**
      * get all team members who can receive subscription emails
-     * @return object
+     *  object
      */
     public function mailingListSubscriptions($notification_type = '') {
 
@@ -585,7 +600,7 @@ class UserRepository {
 
     /**
      * get all team members who can receive proposal emails
-     * @return object
+     *  object
      */
     public function mailingListProposals($notification_type = '') {
 
@@ -624,7 +639,7 @@ class UserRepository {
 
         /**
      * get all team members who can receive proposal emails
-     * @return object
+     *  object
      */
     public function mailingListContracts($notification_type = '') {
 
@@ -666,7 +681,7 @@ class UserRepository {
      * @param numeric $type (company_name)
      * @param string $results the result return type (ids|collection)
      * @param string $user_type return all users or just the primary user (all|owner)
-     * @return array
+     *  array
      */
     public function getClientUsers($client_id = '', $user_type = 'all', $results = 'ids') {
 
@@ -712,7 +727,7 @@ class UserRepository {
     /**
      * get all team members
      * @param string $results the result return type (ids|collection)
-     * @return object
+     *  object
      */
     public function getTeamMembers($results = 'collection') {
 
@@ -746,7 +761,7 @@ class UserRepository {
     /**
      * get all admin members
      * @param string $results the result return type (ids|collection)
-     * @return object
+     *  object
      */
     public function getAdminUsers($results = 'collection') {
 
@@ -781,7 +796,7 @@ class UserRepository {
     /**
      * Get the client account owner
      * @param numeric $client_id client did
-     * @return object client model object
+     *  object client model object
      */
     public function getClientAccountOwner($client_id = '') {
 
@@ -810,7 +825,7 @@ class UserRepository {
     /**
      * update a record
      * @param int $id record id
-     * @return mixed bool or id of record
+     *  mixed bool or id of record
      */
     public function updateAvatar($id) {
 
@@ -837,7 +852,7 @@ class UserRepository {
      * get all team members
      * @param int $client_id
      * @param int $new_owner_id the user to set as new owner
-     * @return object
+     *  object
      */
     public function updateAccountOwner($client_id = '', $new_owner_id = '') {
 

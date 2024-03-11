@@ -58,7 +58,7 @@
         </span>
 
         <!--TOGGLE STATS-->
-        <?php if( config('visibility.stats_toggle_button')): ?>
+        <?php if(1==0 && config('visibility.stats_toggle_button')): ?>
         <button type="button" data-toggle="tooltip" title="<?php echo e(cleanLang(__('lang.quick_stats'))); ?>"
             class="list-actions-button btn btn-page-actions waves-effect waves-dark js-toggle-stats-widget update-user-ux-preferences"
             data-type="statspanel" data-progress-bar="hidden"

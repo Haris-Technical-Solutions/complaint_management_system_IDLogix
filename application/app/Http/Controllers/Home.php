@@ -208,7 +208,9 @@ class Home extends Controller {
             'filter_assigned' => [auth()->id()],
         ]);
         $payload['my_projects'] = $this->projectrepo->search('', ['limit' => 30]);
+        $payload['my_tasks'] = $this->taskrepo->search('',["apply_filters"=>false,'dashboard'=>true]);
 
+        // dd($payload['my_tasks']);
         //return payload
         return $payload;
 

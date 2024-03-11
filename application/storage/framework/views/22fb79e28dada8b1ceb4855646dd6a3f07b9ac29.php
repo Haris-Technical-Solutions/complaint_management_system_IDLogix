@@ -406,9 +406,9 @@
                     
                     <ul aria-expanded="false" class="position-top collapse">
                         <?php if(config('visibility.modules.team')): ?>
-                        <li class="sidenav-submenu mainmenu_team <?php echo e($page['submenu_team'] ?? ''); ?>" id="submenu_team">
-                            <a href="/bottler"
-                                class="<?php echo e($page['submenu_team'] ?? ''); ?>"><?php echo e(cleanLang(__('lang.bottlers'))); ?></a>
+                        <li class="sidenav-submenu mainmenu_team <?php echo e($page['submenu_manager'] ?? ''); ?>" id="submenu_manager">
+                            <a href="/manager"
+                                class="<?php echo e($page['submenu_manager'] ?? ''); ?>"><?php echo e(cleanLang(__('lang.managers'))); ?></a>
                         </li>
                         <?php endif; ?>
                         

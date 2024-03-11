@@ -20,7 +20,7 @@
 <?php endif; ?>
 <div class=""><small><strong><?php echo app('translator')->get('lang.project'); ?>: </strong></small><small id="card-task-milestone-title"><a
             href="<?php echo e(url('projects/'.$task->project_id ?? '')); ?>"><?php echo e($task->project_title ?? '---'); ?></a></small></div>
-<div class="m-b-15"><small><strong><?php echo app('translator')->get('lang.milestone'); ?>: </strong></small><small
+<div class="hidden m-b-15"><small><strong><?php echo app('translator')->get('lang.milestone'); ?>: </strong></small><small
         id="card-task-milestone-title"><?php echo e(runtimeLang($task->milestone_title, 'task_milestone')); ?></small></div>
 
 <!--this item is archived notice-->

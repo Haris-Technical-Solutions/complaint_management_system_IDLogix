@@ -54,137 +54,150 @@
         </div>
         <!--position-->
 
+        <!--manager Dropdown-->
+        
+        <div class="form-group row">
+            <label class="col-sm-12 col-lg-3 text-left control-label col-form-label required"><?php echo e(cleanLang(__('lang.manager'))); ?>*</label>
+            <div class="col-sm-12 col-lg-9">
+                <select class="select2-basic form-control form-control-sm" id="manager_id" name="manager_id">
+                    <option></option>
+                    <?php $__currentLoopData = $managers; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $manager): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    
+                    <option value="<?php echo e($manager->id); ?>" <?php echo e(runtimePreselected($manager->id, $user->manager_id ?? '')); ?>>
+                        <?php echo e(ucfirst($manager->first_name)); ?>
+
+                        
+                        <?php echo e(ucfirst($manager->last_name)); ?>
+
+                    </option>
+                    
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                </select>
+            </div>
+        </div>
+
         <?php if(@request('type') != 'profile'): ?>
-        <!--[team][admin] user role-->
-            <div class="form-group row">
-                <label class="col-sm-12 col-lg-3 text-left control-label col-form-label required"><?php echo e(cleanLang(__('lang.role'))); ?>*</label>
-                <div class="col-sm-12 col-lg-9">
-                    <select class="select2-basic form-control form-control-sm" id="role_id" name="role_id">
-                        <option></option>
-                        <?php $__currentLoopData = $roles; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $role): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                        <?php if(runtimeTeamCreateAdminPermissions($role->role_id)): ?>
-                        <option value="<?php echo e($role->role_id); ?>" <?php echo e(runtimePreselected($role->role_id, $user->role_id ?? '')); ?>>
-                            <?php echo e($role->role_name); ?></option>
-                        <?php endif; ?>
-                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                    </select>
-                </div>
-            </div>
             <!--[team][admin] user role-->
-
             
-            <div class="form-group row">
-                <label class="col-sm-12 col-lg-3 text-left control-label col-form-label required"><?php echo e(cleanLang(__('lang.bottler'))); ?>*</label>
-                <div class="col-sm-12 col-lg-9">
-                    <select class="select2-basic form-control form-control-sm" id="bottler_id" name="bottler_id">
-                        <option></option>
-                        <?php $__currentLoopData = $bottlers; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $bottler): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                        <?php if(runtimeTeamCreateAdminPermissions($bottler->id)): ?>
-                        <option value="<?php echo e($bottler->id); ?>" <?php echo e(runtimePreselected($bottler->id, $user->bottler_id ?? '')); ?>>
-                            <?php echo e(ucfirst($bottler->first_name)); ?>
-
-                            
-                            <?php echo e(ucfirst($bottler->last_name)); ?>
-
-                        </option>
-                        <?php endif; ?>
-                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                    </select>
+                <div class="form-group row">
+                    <label
+                        class="col-sm-12 col-lg-3 text-left control-label col-form-label required"><?php echo e(cleanLang(__('lang.role'))); ?>*</label>
+                    <div class="col-sm-12 col-lg-9">
+                        <select class="select2-basic form-control form-control-sm" id="role_id" name="role_id">
+                            <option></option>
+                            <?php $__currentLoopData = $roles; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $role): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <?php if(runtimeTeamCreateAdminPermissions($role->role_id) && $role->role_id == 16): ?>
+                                    <option value="<?php echo e($role->role_id); ?>"
+                                        <?php echo e(runtimePreselected($role->role_id, $user->role_id ?? '')); ?>>
+                                        <?php echo e($role->role_name); ?></option>
+                                <?php endif; ?>
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                        </select>
+                    </div>
                 </div>
-            </div>
+            
+            
+            <!--[team][admin] user role-->
         <?php endif; ?>
 
         <?php if(isset($page['section']) && $page['section'] == 'edit'): ?>
-        <!--preferences-->
-        <div class="spacer row">
-            <div class="col-sm-12 col-lg-8">
-                <?php echo e(cleanLang(__('lang.preferences'))); ?>
+            <!--preferences-->
+            <div class="spacer row">
+                <div class="col-sm-12 col-lg-8">
+                    <?php echo e(cleanLang(__('lang.preferences'))); ?>
 
-            </div>
-            <div class="col-sm-12 col-lg-4">
-                <div class="switch  text-right">
-                    <label>
-                        <input type="checkbox" name="toggle_social_profile" id="toggle_social_preferences"
-                            class="js-switch-toggle-hidden-content" data-target="preferences_section">
-                        <span class="lever switch-col-light-blue"></span>
-                    </label>
+                </div>
+                <div class="col-sm-12 col-lg-4">
+                    <div class="switch  text-right">
+                        <label>
+                            <input type="checkbox" name="toggle_social_profile" id="toggle_social_preferences"
+                                class="js-switch-toggle-hidden-content" data-target="preferences_section">
+                            <span class="lever switch-col-light-blue"></span>
+                        </label>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="hidden" id="preferences_section">
-            <div class="form-group form-group-checkbox row">
-                <label class="col-4 col-form-label text-left"><?php echo e(cleanLang(__('lang.email_notifications'))); ?></label>
-                <div class="col-8 text-left p-t-5">
-                    <input type="checkbox" id="pref_email_notifications" name="pref_email_notifications"
-                        class="filled-in chk-col-light-blue"
-                        <?php echo e(runtimePrechecked($user->pref_email_notifications ?? '')); ?>>
-                    <label for="pref_email_notifications"></label>
+            <div class="hidden" id="preferences_section">
+                <div class="form-group form-group-checkbox row">
+                    <label
+                        class="col-4 col-form-label text-left"><?php echo e(cleanLang(__('lang.email_notifications'))); ?></label>
+                    <div class="col-8 text-left p-t-5">
+                        <input type="checkbox" id="pref_email_notifications" name="pref_email_notifications"
+                            class="filled-in chk-col-light-blue"
+                            <?php echo e(runtimePrechecked($user->pref_email_notifications ?? '')); ?>>
+                        <label for="pref_email_notifications"></label>
+                    </div>
                 </div>
             </div>
-        </div>
-        <!--/#preferences-->
+            <!--/#preferences-->
         <?php endif; ?>
 
-        <?php if(isset($page['section']) && $page['section'] == 'edit'): ?>
-        <!--social profile-->
-        <div class="spacer row">
-            <div class="col-sm-12 col-lg-8">
-                <?php echo e(cleanLang(__('lang.social_profile'))); ?>
+        <?php if(1 == 0 && isset($page['section']) && $page['section'] == 'edit'): ?>
+            <!--Added By Sher Ali --Social Info -->
+            <!--social profile-->
+            <div class="spacer row">
+                <div class="col-sm-12 col-lg-8">
+                    <?php echo e(cleanLang(__('lang.social_profile'))); ?>
 
-            </div>
-            <div class="col-sm-12 col-lg-4">
-                <div class="switch  text-right">
-                    <label>
-                        <input type="checkbox" name="toggle_social_profile" id="toggle_social_profile"
-                            class="js-switch-toggle-hidden-content" data-target="social_profile_section">
-                        <span class="lever switch-col-light-blue"></span>
-                    </label>
+                </div>
+                <div class="col-sm-12 col-lg-4">
+                    <div class="switch  text-right">
+                        <label>
+                            <input type="checkbox" name="toggle_social_profile" id="toggle_social_profile"
+                                class="js-switch-toggle-hidden-content" data-target="social_profile_section">
+                            <span class="lever switch-col-light-blue"></span>
+                        </label>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="hidden" id="social_profile_section">
-            <!--twitter-->
-            <div class="form-group row">
-                <label class="col-sm-12 col-lg-3 text-left control-label col-form-label">Twitter</label>
-                <div class="col-sm-12 col-lg-9">
-                    <input type="text" class="form-control form-control-sm" id="social_twitter" name="social_twitter"
-                        value="<?php echo e($user->social_twitter ?? ''); ?>" placeholder="https://twitter.com">
+            <div class="hidden" id="social_profile_section">
+                <!--twitter-->
+                <div class="form-group row">
+                    <label class="col-sm-12 col-lg-3 text-left control-label col-form-label">Twitter</label>
+                    <div class="col-sm-12 col-lg-9">
+                        <input type="text" class="form-control form-control-sm" id="social_twitter"
+                            name="social_twitter" value="<?php echo e($user->social_twitter ?? ''); ?>"
+                            placeholder="https://twitter.com">
+                    </div>
+                </div>
+                <!--facebook-->
+                <div class="form-group row">
+                    <label class="col-sm-12 col-lg-3 text-left control-label col-form-label">Facebook</label>
+                    <div class="col-sm-12 col-lg-9">
+                        <input type="text" class="form-control form-control-sm" id="social_facebook"
+                            name="social_facebook" value="<?php echo e($user->social_facebook ?? ''); ?>"
+                            placeholder="https://www.facebook.com">
+                    </div>
+                </div>
+                <!--linkedin-->
+                <div class="form-group row">
+                    <label class="col-sm-12 col-lg-3 text-left control-label col-form-label">LinkedIn</label>
+                    <div class="col-sm-12 col-lg-9">
+                        <input type="text" class="form-control form-control-sm" id="social_linkedin"
+                            name="social_linkedin" value="<?php echo e($user->social_linkedin ?? ''); ?>"
+                            placeholder="https://www.linkedin.com">
+                    </div>
+                </div>
+                <!--github-->
+                <div class="form-group row">
+                    <label class="col-sm-12 col-lg-3 text-left control-label col-form-label">Github</label>
+                    <div class="col-sm-12 col-lg-9">
+                        <input type="text" class="form-control form-control-sm" id="social_github"
+                            name="social_github" value="<?php echo e($user->social_github ?? ''); ?>"
+                            placeholder="https://github.com">
+                    </div>
+                </div>
+                <!--dribble-->
+                <div class="form-group row">
+                    <label class="col-sm-12 col-lg-3 text-left control-label col-form-label">Dribble</label>
+                    <div class="col-sm-12 col-lg-9">
+                        <input type="text" class="form-control form-control-sm" id="social_dribble"
+                            name="social_dribble" value="<?php echo e($user->social_dribble ?? ''); ?>"
+                            placeholder="https://dribble.com">
+                    </div>
                 </div>
             </div>
-            <!--facebook-->
-            <div class="form-group row">
-                <label class="col-sm-12 col-lg-3 text-left control-label col-form-label">Facebook</label>
-                <div class="col-sm-12 col-lg-9">
-                    <input type="text" class="form-control form-control-sm" id="social_facebook" name="social_facebook"
-                        value="<?php echo e($user->social_facebook ?? ''); ?>" placeholder="https://www.facebook.com">
-                </div>
-            </div>
-            <!--linkedin-->
-            <div class="form-group row">
-                <label class="col-sm-12 col-lg-3 text-left control-label col-form-label">LinkedIn</label>
-                <div class="col-sm-12 col-lg-9">
-                    <input type="text" class="form-control form-control-sm" id="social_linkedin" name="social_linkedin"
-                        value="<?php echo e($user->social_linkedin ?? ''); ?>" placeholder="https://www.linkedin.com">
-                </div>
-            </div>
-            <!--github-->
-            <div class="form-group row">
-                <label class="col-sm-12 col-lg-3 text-left control-label col-form-label">Github</label>
-                <div class="col-sm-12 col-lg-9">
-                    <input type="text" class="form-control form-control-sm" id="social_github" name="social_github"
-                        value="<?php echo e($user->social_github ?? ''); ?>" placeholder="https://github.com">
-                </div>
-            </div>
-            <!--dribble-->
-            <div class="form-group row">
-                <label class="col-sm-12 col-lg-3 text-left control-label col-form-label">Dribble</label>
-                <div class="col-sm-12 col-lg-9">
-                    <input type="text" class="form-control form-control-sm" id="social_dribble" name="social_dribble"
-                        value="<?php echo e($user->social_dribble ?? ''); ?>" placeholder="https://dribble.com">
-                </div>
-            </div>
-        </div>
-        <!--social profile-->
+            <!--social profile-->
         <?php endif; ?>
 
         <!--pass source-->
@@ -197,4 +210,5 @@
             </div>
         </div>
     </div>
-</div><?php /**PATH C:\laragon\www\cms\application\resources\views/pages/team/modals/add-edit-inc.blade.php ENDPATH**/ ?>
+</div>
+<?php /**PATH C:\laragon\www\cms\application\resources\views/pages/team/modals/add-edit-inc.blade.php ENDPATH**/ ?>

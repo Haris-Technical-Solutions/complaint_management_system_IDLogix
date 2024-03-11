@@ -192,6 +192,9 @@ class Kernel extends HttpKernel {
         'itemsMiddlewareDestroy' => \App\Http\Middleware\Items\Destroy::class,
         'itemsMiddlewareBulkEdit' => \App\Http\Middleware\Items\BulkEdit::class, //DONE
 
+        //[growcrm] - [BOTTLERS]
+    
+
         //[growcrm] - [contacts]
         'contactsMiddlewareIndex' => \App\Http\Middleware\Contacts\Index::class,
         'contactsMiddlewareCreate' => \App\Http\Middleware\Contacts\Create::class,
@@ -287,6 +290,11 @@ class Kernel extends HttpKernel {
         'teamMiddlewareIndex' => \App\Http\Middleware\Team\Index::class,
         'teamMiddlewareCreate' => \App\Http\Middleware\Team\Create::class,
         'teamMiddlewareEdit' => \App\Http\Middleware\Team\Edit::class,
+
+          //[growcrm] - [BOTTLERS]
+        'managersMiddlewareIndex' => \App\Http\Middleware\Managers\Index::class,
+        'managersMiddlewareCreate' => \App\Http\Middleware\Managers\Create::class,
+        'managersMiddlewareEdit' => \App\Http\Middleware\Managers\Edit::class,
 
         //[growcrm] - [proposals]
         'proposalsMiddlewareIndex' => \App\Http\Middleware\Proposals\Index::class,

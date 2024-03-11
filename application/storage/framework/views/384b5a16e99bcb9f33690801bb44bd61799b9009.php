@@ -127,7 +127,7 @@
         <span title="<?php echo e($task->project_title ?? '---'); ?>"><strong><?php echo e(cleanLang(__('lang.project'))); ?>:</strong>
             <?php echo e(str_limit($task->project_title ??'---', 68)); ?></span>
         <?php endif; ?>
-        <!--client-->
+        <!--client--> 
         <?php if(config('system.settings_tasks_kanban_client_name') == 'show'): ?>
         <span title="<?php echo e($task->client_company_name ?? '---'); ?>"><strong><?php echo e(cleanLang(__('lang.client'))); ?>:</strong>
             <?php echo e(str_limit($task->client_company_name ??'---', 68)); ?></span>

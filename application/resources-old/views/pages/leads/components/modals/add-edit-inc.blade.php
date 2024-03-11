@@ -172,7 +172,7 @@
                         $source->leadsources_title }}</option>
                         @endforeach
                         @if(isset($page['section']) && $page['section'] == 'edit')
-                        {{!! clean(runtimeLeadSourceCustom($sourcelist, $lead->lead_source  ?? '')) !!}}
+                        {!! clean(runtimeLeadSourceCustom($sourcelist, $lead->lead_source  ?? '')) !!}
                         @endif
                     </select>
                 </div>
@@ -188,7 +188,7 @@
                         $source->leadsources_title }}</option>
                         @endforeach
                         @if(isset($page['section']) && $page['section'] == 'edit')
-                        {{!! clean(runtimeLeadSourceCustom($sourcelist, $lead->lead_source ?? '')) !!}}
+                        {!! clean(runtimeLeadSourceCustom($sourcelist, $lead->lead_source ?? '')) !!}
                         @endif
                     </select>
                 </div>

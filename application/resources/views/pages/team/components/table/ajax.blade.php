@@ -10,8 +10,12 @@
             title="{{ cleanLang(__('lang.main_administrator')) }}" id="team_admin_{{ $team->id }}"></span>
         @endif
     </td>
-    <td class="team_col_position">
+    {{-- <td class="team_col_position">
         {{ str_limit(runtimeCheckBlank($team->position), 20) }}
+    </td> --}}
+    <td class="team_col_manager">
+        {{ $team->manager->first_name }}
+        {{ runtimeCheckBlank($team->manager->last_name) }}
     </td>
     @if(config('visibility.action_super_user'))
     <td class="team_col_role">{{ runtimeCheckBlank($team->role['role_name']) }}</td>

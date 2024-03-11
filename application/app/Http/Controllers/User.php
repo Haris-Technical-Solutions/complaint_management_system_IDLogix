@@ -39,7 +39,7 @@ class User extends Controller {
 
     /**
      * Show the form for editing the specified users avatar
-     * @return \Illuminate\Http\Response
+     *  \Illuminate\Http\Response
      */
     public function avatar() {
 
@@ -54,7 +54,7 @@ class User extends Controller {
      * Update the specified user in storage.
      * @param object AttachmentRepository instance of the repository
      * @param int $id user id
-     * @return \Illuminate\Http\Response
+     *  \Illuminate\Http\Response
      */
     public function updateAvatar(AttachmentRepository $attachmentrepo) {
 
@@ -86,7 +86,7 @@ class User extends Controller {
 
     /**
      * Display the update password form
-     * @return \Illuminate\Http\Response
+     *  \Illuminate\Http\Response
      */
     public function updatePassword() {
 
@@ -100,7 +100,7 @@ class User extends Controller {
 
     /**
      * Update authenticated users password
-     * @return \Illuminate\Http\Response
+     *  \Illuminate\Http\Response
      */
     public function updatePasswordAction() {
 
@@ -154,7 +154,7 @@ class User extends Controller {
 
     /**
      * Show the form for changing theme
-     * @return blade view | ajax view
+     *  blade view | ajax view
      */
     public function updateTheme() {
 
@@ -179,7 +179,7 @@ class User extends Controller {
     /**
      * update the users theme
      *
-     * @return \Illuminate\Http\Response
+     *  \Illuminate\Http\Response
      */
     public function updateThemeAction() {
 
@@ -202,7 +202,7 @@ class User extends Controller {
 
     /**
      * Update users language
-     * @return \Illuminate\Http\Response
+     *  \Illuminate\Http\Response
      */
     public function updateLanguage() {
 
@@ -241,7 +241,7 @@ class User extends Controller {
 
     /**
      * Display the update notiffication settings form
-     * @return \Illuminate\Http\Response
+     *  \Illuminate\Http\Response
      */
     public function updateNotifications() {
 
@@ -255,7 +255,7 @@ class User extends Controller {
 
     /**
      * Update authenticated users notifications settings
-     * @return \Illuminate\Http\Response
+     *  \Illuminate\Http\Response
      */
     public function updateNotificationsAction() {
 

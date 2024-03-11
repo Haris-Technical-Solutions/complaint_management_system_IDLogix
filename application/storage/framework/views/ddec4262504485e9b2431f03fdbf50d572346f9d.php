@@ -1,6 +1,6 @@
 <div class="row">
     <!--PROJECTS PENDING-->
-    <?php echo $__env->make('pages.home.team.widgets.first-row.projects-pending', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+    
 
     <!--PROJECTS COMPLETED-->
     <?php echo $__env->make('pages.home.team.widgets.first-row.tasks-new', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>

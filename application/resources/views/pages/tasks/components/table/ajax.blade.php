@@ -40,6 +40,24 @@
             @endif</a>
         @endif
     </td>
+    <td class="projects_col_team">
+        <!--assigned users-->
+        @if(count($task->assigned ?? []) > 0)
+        @foreach($task->assigned->take(2) as $user)
+        <img src="{{ $user->avatar }}" data-toggle="tooltip" title="{{ $user->first_name }}" data-placement="top"
+            alt="{{ $user->first_name }}" class="img-circle avatar-xsmall">
+        @endforeach
+        @else
+        <span>---</span>
+        @endif
+        <!--assigned users-->
+        <!--more users-->
+        @if(count($task->assigned ?? []) > 2)
+        @php $more_users_title = __('lang.assigned_users'); $users = $task->assigned; @endphp
+        @include('misc.more-users')
+        @endif
+        <!--more users-->
+    </td>
     @if(config('system.settings_tasks_kanban_client_name') == 'show')
     <td class="tasks_col_client">
         <span class="x-strike-through"><a title=""

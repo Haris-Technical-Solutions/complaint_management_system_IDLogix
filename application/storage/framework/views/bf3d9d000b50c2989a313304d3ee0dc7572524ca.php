@@ -16,9 +16,12 @@
 
     </td>
     <?php endif; ?>
+    <?php if(config('visibility.modules.invoices')): ?>
     <td class="clients_col_invoices" id="clients_col_invoices_<?php echo e($client->client_id); ?>">
         <?php echo e(runtimeMoneyFormat($client->sum_invoices_all)); ?></td>
-    <td class="clients_col_tags" id="clients_col_tags_<?php echo e($client->client_id); ?>">
+    <?php endif; ?>
+    
+        <td class="clients_col_tags" id="clients_col_tags_<?php echo e($client->client_id); ?>">
 
 
         <!--tag-->

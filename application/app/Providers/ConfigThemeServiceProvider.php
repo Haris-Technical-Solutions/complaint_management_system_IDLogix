@@ -81,7 +81,7 @@ class ConfigThemeServiceProvider extends ServiceProvider {
         ]);
 
         //[user custom theme] - set the theme for the current user (apply to all views)
-        view()->composer('*', function ($view) {
+        view()->composer('*', function ($view) use($settings) {
             if (auth()->check()) {
                 //validate current theme
                 if (!is_file(BASE_DIR . '/public/themes/' . auth()->user()->pref_theme . '/css/style.css')) {
