@@ -56,7 +56,7 @@ class Home extends Controller {
 
     /**
      * Display the home page
-     * @return \Illuminate\Http\Response
+     *  \Illuminate\Http\Response
      */
     public function index() {
 
@@ -107,63 +107,63 @@ class Home extends Controller {
      * [AFFILIATE]
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     *  \Illuminate\Http\Response
      */
-    public function csAffiliateDashboard() {
+    // public function csAffiliateDashboard() {
 
-        //get events
-        $events = \App\Models\Custom\CSEvent::Where('cs_event_affliateid', auth()->id())->orderBy('cs_event_id', 'DESC')
-            ->take(100)
-            ->get();
+    //     //get events
+    //     $events = \App\Models\Custom\CSEvent::Where('cs_event_affliateid', auth()->id())->orderBy('cs_event_id', 'DESC')
+    //         ->take(100)
+    //         ->get();
 
-        //get projects
-        $projects = \App\Models\Custom\CSAffiliateProject::leftJoin('projects', 'projects.project_id', '=', 'cs_affiliate_projects.cs_affiliate_project_projectid')
-            ->selectRaw('*')
-            ->Where('cs_affiliate_project_affiliateid', auth()->id())
-            ->where('cs_affiliate_project_status', 'active')
-            ->orderBy('cs_affiliate_project_id', 'DESC')
-            ->take(100)
-            ->get();
+    //     //get projects
+    //     $projects = \App\Models\Custom\CSAffiliateProject::leftJoin('projects', 'projects.project_id', '=', 'cs_affiliate_projects.cs_affiliate_project_projectid')
+    //         ->selectRaw('*')
+    //         ->Where('cs_affiliate_project_affiliateid', auth()->id())
+    //         ->where('cs_affiliate_project_status', 'active')
+    //         ->orderBy('cs_affiliate_project_id', 'DESC')
+    //         ->take(100)
+    //         ->get();
 
-        //Profits - today
-        $today = \Carbon\Carbon::now()->format('Y-m-d');
-        $profits['today'] = \App\Models\Custom\CSAffiliateEarning::where('cs_affiliate_earning_commission_approval_date', $today)
-            ->where('cs_affiliate_earning_affiliateid', auth()->id())
-            ->where('cs_affiliate_earning_status', 'paid')
-            ->sum('cs_affiliate_earning_amount');
+    //     //Profits - today
+    //     $today = \Carbon\Carbon::now()->format('Y-m-d');
+    //     $profits['today'] = \App\Models\Custom\CSAffiliateEarning::where('cs_affiliate_earning_commission_approval_date', $today)
+    //         ->where('cs_affiliate_earning_affiliateid', auth()->id())
+    //         ->where('cs_affiliate_earning_status', 'paid')
+    //         ->sum('cs_affiliate_earning_amount');
 
-        //Profits - today
-        $start = \Carbon\Carbon::now()->startOfMonth()->format('Y-m-d');
-        $end = \Carbon\Carbon::now()->endOfMonth()->format('Y-m-d');
-        $profits['this_month'] = \App\Models\Custom\CSAffiliateEarning::where('cs_affiliate_earning_commission_approval_date', '>=', $start)
-            ->where('cs_affiliate_earning_commission_approval_date', '<=', $end)
-            ->where('cs_affiliate_earning_status', 'paid')
-            ->where('cs_affiliate_earning_affiliateid', auth()->id())
-            ->sum('cs_affiliate_earning_amount');
+    //     //Profits - today
+    //     $start = \Carbon\Carbon::now()->startOfMonth()->format('Y-m-d');
+    //     $end = \Carbon\Carbon::now()->endOfMonth()->format('Y-m-d');
+    //     $profits['this_month'] = \App\Models\Custom\CSAffiliateEarning::where('cs_affiliate_earning_commission_approval_date', '>=', $start)
+    //         ->where('cs_affiliate_earning_commission_approval_date', '<=', $end)
+    //         ->where('cs_affiliate_earning_status', 'paid')
+    //         ->where('cs_affiliate_earning_affiliateid', auth()->id())
+    //         ->sum('cs_affiliate_earning_amount');
 
-        //Profits - all time
-        $profits['all_time'] = \App\Models\Custom\CSAffiliateEarning::where('cs_affiliate_earning_affiliateid', auth()->id())
-            ->where('cs_affiliate_earning_status', 'paid')
-            ->sum('cs_affiliate_earning_amount');
+    //     //Profits - all time
+    //     $profits['all_time'] = \App\Models\Custom\CSAffiliateEarning::where('cs_affiliate_earning_affiliateid', auth()->id())
+    //         ->where('cs_affiliate_earning_status', 'paid')
+    //         ->sum('cs_affiliate_earning_amount');
 
-        //Profits - pending
-        $profits['pending'] = \App\Models\Custom\CSAffiliateEarning::where('cs_affiliate_earning_affiliateid', auth()->id())
-            ->where('cs_affiliate_earning_status', 'unpaid')
-            ->sum('cs_affiliate_earning_amount');
+    //     //Profits - pending
+    //     $profits['pending'] = \App\Models\Custom\CSAffiliateEarning::where('cs_affiliate_earning_affiliateid', auth()->id())
+    //         ->where('cs_affiliate_earning_status', 'unpaid')
+    //         ->sum('cs_affiliate_earning_amount');
 
-        $payload = [
-            'events' => $events,
-            'projects' => $projects,
-            'profits' => $profits,
-        ];
+    //     $payload = [
+    //         'events' => $events,
+    //         'projects' => $projects,
+    //         'profits' => $profits,
+    //     ];
 
-        return $payload;
+    //     return $payload;
 
-    }
+    // }
 
     /**
      * display team dashboard
-     * @return \Illuminate\Http\Response
+     *  \Illuminate\Http\Response
      */
     public function teamDashboard() {
 
@@ -218,7 +218,7 @@ class Home extends Controller {
  
     /**
      * display client dashboard
-     * @return \Illuminate\Http\Response
+     *  \Illuminate\Http\Response
      */
     public function clientDashboard() {
 
@@ -297,7 +297,7 @@ class Home extends Controller {
 
     /**
      * display admin User
-     * @return \Illuminate\Http\Response
+     *  \Illuminate\Http\Response
      */
     public function adminDashboard() {
 
@@ -404,7 +404,7 @@ class Home extends Controller {
      * create a leads widget
      * [UPCOMING] call this via ajax for dynamically changing dashboad filters
      * @param string $filter [alltime|...]  //add as we go
-     * @return \Illuminate\Http\Response
+     *  \Illuminate\Http\Response
      */
     public function widgetLeads($filter) {
 
@@ -452,7 +452,7 @@ class Home extends Controller {
      * basic page setting for this section of the app
      * @param string $section page section (optional)
      * @param array $data any other data (optional)
-     * @return array
+     *  array
      */
     private function pageSettings($section = '', $data = []) {
 

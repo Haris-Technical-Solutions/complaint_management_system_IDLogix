@@ -33,7 +33,7 @@ class TaskRepository {
     /**
      * Search model
      * @param int $id optional for getting a single, specified record
-     * @return object task collection
+     *  object task collection
      */
     public function search($id = '', $data = []) {
 
@@ -398,7 +398,7 @@ class TaskRepository {
     /**
      * Create a new record
      * @param int $position new position of the record
-     * @return mixed object|bool
+     *  mixed object|bool
      */
     public function create($position = '') {
 
@@ -439,7 +439,7 @@ class TaskRepository {
     /**
      * update a record
      * @param int $id record id
-     * @return mixed bool or id of record
+     *  mixed bool or id of record
      */
     public function timerStop($id) {
 
@@ -466,7 +466,7 @@ class TaskRepository {
     /**
      * update a record
      * @param int $id record id
-     * @return mixed int|bool
+     *  mixed int|bool
      */
     public function update($id) {
 
@@ -508,7 +508,7 @@ class TaskRepository {
 
     /**
      * clone a tasks
-     * @return bool
+     *  bool
      */
     public function cloneTask($task = '', $project = '', $data = []) {
 
