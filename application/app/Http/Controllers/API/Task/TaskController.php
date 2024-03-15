@@ -587,7 +587,6 @@ class TaskController extends Controller {
           */
 
     public function store(TaskStoreUpdateApi $request, TaskAssignedRepository $assignedrepo) {
-        dd($request);
         //defaults
         $assigned_users = [];
 

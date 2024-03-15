@@ -126,7 +126,7 @@ class TaskStoreUpdateApi extends FormRequest {
 
         // abort(409, $messages);
         echo json_encode([
-            'errors'=>$errors->all(),
+            'errors'=>$errors,
         ],409);
         exit;
     }

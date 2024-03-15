@@ -522,7 +522,6 @@ class Tasks extends Controller {
      * 
      */
     public function store(TaskStoreUpdate $request, TaskAssignedRepository $assignedrepo) {
-
         //defaults
         $assigned_users = [];
 
