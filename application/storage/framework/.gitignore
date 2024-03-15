@@ -6,3 +6,9 @@ services.json
 events.scanned.php
 routes.scanned.php
 down
+
+!cache/
+!sessions/
+!testing/
+!views/
+!.gitignore
