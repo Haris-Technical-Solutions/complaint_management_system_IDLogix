@@ -251,10 +251,10 @@ class Tasks extends Controller {
 
     /**
      * Display a listing of tasks
-     * @return \Illuminate\Http\Response
+     * 
      */
     public function index() {
-        
+         
         if (auth()->user()->pref_view_tasks_layout == 'list') {
             $payload = $this->indexList();
             return new IndexListResponse($payload);
@@ -266,7 +266,7 @@ class Tasks extends Controller {
 
     /**
      * Display a listing of tasks
-     * @return \Illuminate\Http\Response
+     * 
      */
     public function indexList() {
 
@@ -328,7 +328,7 @@ class Tasks extends Controller {
 
     /**
      * Display a listing of tasks
-     * @return \Illuminate\Http\Response
+     * 
      */
     public function indexKanban() {
 
@@ -442,7 +442,7 @@ class Tasks extends Controller {
     /**
      * Show the form for creating a new task
      * @param object CategoryRepository instance of the repository
-     * @return \Illuminate\Http\Response
+     * 
      */
     public function create(CategoryRepository $categoryrepo) {
 
@@ -519,7 +519,7 @@ class Tasks extends Controller {
      * Store a newly created task in storage.
      * @param object TaskStoreUpdate instance of the request validation object
      * @param object TaskAssignedRepository instance of the repository
-     * @return \Illuminate\Http\Response
+     * 
      */
     public function store(TaskStoreUpdate $request, TaskAssignedRepository $assignedrepo) {
 
@@ -687,7 +687,7 @@ class Tasks extends Controller {
 
     /**
      * Returns false when all is ok
-     * @return \Illuminate\Http\Response
+     * 
      */
     public function customFieldValidationFailed() {
 
@@ -717,7 +717,7 @@ class Tasks extends Controller {
      * @param object AttachmentRepository instance of the repository
      * @param object ChecklistRepository instance of the repository
      * @param int $id task id
-     * @return \Illuminate\Http\Response
+     * 
      */
     public function show(
         TaskAssignedRepository $assignedrepo,
@@ -854,7 +854,7 @@ class Tasks extends Controller {
     /**
      * Update the specified task in storage.
      * @param int $id task id
-     * @return \Illuminate\Http\Response
+     * 
      */
     public function update($id) {
 
@@ -870,7 +870,7 @@ class Tasks extends Controller {
     /**
      * Remove the specified task from storage.
      * @param object DestroyRepository instance of the repository
-     * @return \Illuminate\Http\Response
+     * 
      */
     public function destroy(DestroyRepository $destroyrepo) {
 
@@ -902,7 +902,7 @@ class Tasks extends Controller {
     /**
      * Start a users timer for a given task
      * @param int $id task id
-     * @return \Illuminate\Http\Response
+     * 
      */
     public function timerStart($id) {
 
@@ -941,7 +941,7 @@ class Tasks extends Controller {
     /**
      * Start a users timer for a given task
      * @param int $id task id
-     * @return \Illuminate\Http\Response
+     * 
      */
     public function timerStartTopnav() {
 
@@ -969,7 +969,7 @@ class Tasks extends Controller {
     /**
      * Stop a users timer for a given task
      * @param int $id task id
-     * @return \Illuminate\Http\Response
+     * 
      */
     public function timerStop($id) {
 
@@ -994,7 +994,7 @@ class Tasks extends Controller {
     /**
      * Stop a users timer for a given task
      * @param int $id task id
-     * @return \Illuminate\Http\Response
+     * 
      */
     public function timerStopUser() {
 
@@ -1010,7 +1010,7 @@ class Tasks extends Controller {
     /**
      * Stop a users timer for a given task
      * @param int $id task id
-     * @return \Illuminate\Http\Response
+     * 
      */
     public function timerStopAll($id) {
 
@@ -1248,7 +1248,7 @@ class Tasks extends Controller {
      * update task status
      * @param object ProjectPermissions instance of the repository
      * @param int $id task id
-     * @return \Illuminate\Http\Response
+     * 
      */
     public function updateStatus(ProjectPermissions $projectpermissions, $id) {
 
@@ -1388,7 +1388,7 @@ class Tasks extends Controller {
     /**
      * update task priority
      * @param int $id task id
-     * @return \Illuminate\Http\Response
+     * 
      */
     public function updatePriority($id) {
 
@@ -1446,7 +1446,7 @@ class Tasks extends Controller {
     /**
      * update task visibility
      * @param int $id task id
-     * @return \Illuminate\Http\Response
+     * 
      */
     public function updateVisibility($id) {
 
@@ -1501,7 +1501,7 @@ class Tasks extends Controller {
     /**
      * update task milestone
      * @param int $id task id
-     * @return \Illuminate\Http\Response
+     * 
      */
     public function updateMilestone($id) {
 
@@ -1546,7 +1546,7 @@ class Tasks extends Controller {
     /**
      * update task title
      * @param int $id task id
-     * @return \Illuminate\Http\Response
+     * 
      */
     public function updateTitle($id) {
 
@@ -1623,7 +1623,7 @@ class Tasks extends Controller {
      * update task assigned users
      * @param object TaskAssignedRepository instance of the repository
      * @param int $id task id
-     * @return \Illuminate\Http\Response
+     * 
      */
     public function updateAssigned(TaskAssignedRepository $assignedrepo, $id) {
 
@@ -1773,7 +1773,7 @@ class Tasks extends Controller {
     /**
      * update task priority
      * @param int $id task id
-     * @return \Illuminate\Http\Response
+     * 
      */
     public function updateTags($id) {
 
@@ -1805,7 +1805,7 @@ class Tasks extends Controller {
     /**
      * save task comment
      * @param object CommentRepository instance of the repository
-     * @return \Illuminate\Http\Response
+     * 
      */
     public function storeComment(CommentRepository $commentrepo, $id) {
 
@@ -1966,7 +1966,7 @@ class Tasks extends Controller {
      * update a task checklist
      * @param object ChecklistRepository instance of the repository
      * @param int $id task id
-     * @return \Illuminate\Http\Response
+     * 
      */
     public function UpdateChecklist(ChecklistRepository $checklistrepo, $id) {
 
@@ -2011,7 +2011,7 @@ class Tasks extends Controller {
 
     /**
      * change task status using the checkbox
-     * @return \Illuminate\Http\Response
+     * 
      */
     public function toggleStatus() {
 
@@ -2260,7 +2260,7 @@ class Tasks extends Controller {
     /**
      * delete task attachment
      * @param int $id task id
-     * @return \Illuminate\Http\Response
+     * 
      */
     public function deleteAttachment() {
 
@@ -2289,7 +2289,7 @@ class Tasks extends Controller {
     /**
      * download task attachment
      * @param int $id task id
-     * @return \Illuminate\Http\Response
+     * 
      */
     public function downloadAttachment() {
 
@@ -2311,7 +2311,7 @@ class Tasks extends Controller {
      * @param object DestroyRepository instance of the repository
      * @param object Comment instance of the comment model object
      * @param int $id task id
-     * @return \Illuminate\Http\Response
+     * 
      */
     public function deleteComment(DestroyRepository $destroyrepo, Comment $comment, $id) {
 
@@ -2333,7 +2333,7 @@ class Tasks extends Controller {
      * @param object Checklist instance of the request object
      * @param object ChecklistRepository instance of the repository
      * @param int $id task id
-     * @return \Illuminate\Http\Response
+     * 
      */
     public function deleteChecklist(Checklist $checklist, ChecklistRepository $checklistrepo) {
 
@@ -2370,7 +2370,7 @@ class Tasks extends Controller {
      * @param object Checklist instance of the request validation object
      * @param object ChecklistRepository instance of the repository
      * @param int $id task id
-     * @return \Illuminate\Http\Response
+     * 
      */
     public function toggleChecklistStatus(Checklist $checklist, ChecklistRepository $checklistrepo) {
 
@@ -2680,7 +2680,7 @@ class Tasks extends Controller {
      * Archive a task
      * @param object TimerRepository instance of the repository
      * @param int $id task id
-     * @return \Illuminate\Http\Response
+     * 
      */
     public function archive($id) {
 
@@ -2710,7 +2710,7 @@ class Tasks extends Controller {
      * Activate a task
      * @param object TimerRepository instance of the repository
      * @param int $id task id
-     * @return \Illuminate\Http\Response
+     * 
      */
     public function activate($id) {
 
@@ -2740,7 +2740,7 @@ class Tasks extends Controller {
      * show custom fields data
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * 
      */
     public function showCustomFields($id) {
 
@@ -2771,7 +2771,7 @@ class Tasks extends Controller {
      * show custom fields data
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * 
      */
     public function editCustomFields($id) {
 
@@ -2802,7 +2802,7 @@ class Tasks extends Controller {
      * show custom fields data
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * 
      */
     public function updateCustomFields($id) {
 
@@ -2846,7 +2846,7 @@ class Tasks extends Controller {
      * show my notes data
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * 
      */
     public function showMyNotes($id) {
 
@@ -2880,7 +2880,7 @@ class Tasks extends Controller {
      * show my notes data
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * 
      */
     public function editMyNotes($id) {
 
@@ -2908,7 +2908,7 @@ class Tasks extends Controller {
      * delete note
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * 
      */
     public function deleteMyNotes($id) {
 
@@ -2936,7 +2936,7 @@ class Tasks extends Controller {
      * show text editor
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * 
      */
     public function createMyNotes($id) {
 
@@ -2963,7 +2963,7 @@ class Tasks extends Controller {
      * update notes
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * 
      */
     public function updateMyNotes($id) {
 
@@ -3006,7 +3006,7 @@ class Tasks extends Controller {
      * show form for cloning tasks
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * 
      */
     public function cloneTask($id) {
 
@@ -3028,7 +3028,7 @@ class Tasks extends Controller {
      * show form for cloning tasks
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * 
      */
     public function cloneStore(ProjectRepository $projectrepo, ProjectPermissions $projectpermissions, TaskAssignedRepository $assignedrepo, $id) {
 
@@ -3126,7 +3126,7 @@ class Tasks extends Controller {
     /**
      * Show the form for editing the specified task
      * @param  int  $task task id
-     * @return \Illuminate\Http\Response
+     * 
      */
     public function recurringSettings($id) {
 
@@ -3159,7 +3159,7 @@ class Tasks extends Controller {
      * Update recurring settings
      * @param object TaskRecurrringSettings instance of the request validation object
      * @param  int  $task task id
-     * @return \Illuminate\Http\Response
+     * 
      */
     public function recurringSettingsUpdate(TaskRecurrringSettings $request, $id) {
 
@@ -3209,7 +3209,7 @@ class Tasks extends Controller {
 
     /**
      * stop an task from recurring
-     * @return \Illuminate\Http\Response
+     * 
      */
     public function stopRecurring() {
 
@@ -3251,7 +3251,7 @@ class Tasks extends Controller {
      * store a task dependency
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * 
      */
     public function storeDependency(TaskDependencyRepository $dependencyrepo, $id) {
 
@@ -3319,7 +3319,7 @@ class Tasks extends Controller {
      *   If its not 'completed' mark dependecies as 'active'
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * 
      */
     public function refreshDependencies($task) {
 
@@ -3337,7 +3337,7 @@ class Tasks extends Controller {
     /**
      * delete task dependency
      * @param int $id task id
-     * @return \Illuminate\Http\Response
+     * 
      */
     public function deleteDependency($id) {
 

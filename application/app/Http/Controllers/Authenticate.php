@@ -59,8 +59,7 @@ class Authenticate extends Controller {
 
     /**
      * Display the login form
-     * @return \Illuminate\Http\Response
-     */
+         */
     public function logIn() {
         //show login page
         return view('pages/authentication/login');
@@ -68,8 +67,7 @@ class Authenticate extends Controller {
 
     /**
      * Display the signup form
-     * @return \Illuminate\Http\Response
-     */
+         */
     public function signUp() {
 
         if (config('system.settings_clients_registration') == 'disabled') {
@@ -81,8 +79,7 @@ class Authenticate extends Controller {
 
     /**
      * Display the forgot password form
-     * @return \Illuminate\Http\Response
-     */
+         */
     public function forgotPassword() {
         //show login page
         return view('pages/authentication/forgotpassword');
@@ -90,8 +87,7 @@ class Authenticate extends Controller {
 
     /**
      * Display the reset password form
-     * @return \Illuminate\Http\Response
-     */
+         */
     public function resetPassword() {
 
         //1 hour expiry
@@ -113,8 +109,7 @@ class Authenticate extends Controller {
 
     /**
      * process login request
-     * @return \Illuminate\Http\Response
-     */
+         */
     public function logInAction() {
 
         //get credentials
@@ -159,8 +154,7 @@ class Authenticate extends Controller {
 
     /**
      * process forgot password request
-     * @return \Illuminate\Http\Response
-     */
+         */
     public function forgotPasswordAction() {
 
         //validation
@@ -194,8 +188,7 @@ class Authenticate extends Controller {
 
     /**
      * process reset password request
-     * @return \Illuminate\Http\Response
-     */
+         */
     public function resetPasswordAction() {
 
         //1 hour expiry
@@ -246,8 +239,7 @@ class Authenticate extends Controller {
 
     /**
      * process new client signup action
-     * @return \Illuminate\Http\Response
-     */
+         */
     public function signUpAction() {
 
         //check if the feature is enabled

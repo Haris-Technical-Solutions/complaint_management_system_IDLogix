@@ -25,11 +25,11 @@ class Index {
      * @return mixed
      */
     public function handle($request, Closure $next) {
-
+        
         //validate module status
         if (!config('visibility.modules.projects')) {
-            abort(404);
-            return $next($request);
+            // abort(404);
+            // return $next($request);
         }
 
         //various frontend and visibility settings
@@ -41,6 +41,7 @@ class Index {
         //embedded request: limit by supplied resource data
         if (request()->filled('projectresource_type') && request()->filled('projectresource_id')) {
             //project projects
+            // dd($request);
             if (request('projectresource_type') == 'project') {
                 request()->merge([
                     'filter_project_projectid' => request('projectresource_id'),
@@ -67,15 +68,17 @@ class Index {
                 return $next($request);
             }
         }
-
+       
         //client users
         if (auth()->user()->is_client) {
-
+            
             //show all projects
             request()->merge([
                 'filter_show_archived_projects' => 'yes',
             ]);
             return $next($request);
+        }else{
+           
         }
 
         //permission denied

@@ -55,8 +55,11 @@ class Kernel extends HttpKernel {
             //[MODULES] [growcrm] [modules main menus]
             \App\Http\Middleware\Modules\Menus::class,
         ],
+        
 
         'api' => [
+
+            
             'throttle:60,1',
             'bindings',
         ],

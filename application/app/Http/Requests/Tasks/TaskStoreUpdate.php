@@ -21,6 +21,10 @@ class TaskStoreUpdate extends FormRequest {
      * so just retun true here
      * @return bool
      */
+    // private $is_api;
+    // public function __construct($is_api = false){
+    //     $this->is_api = $is_api;
+    // }
     public function authorize() {
         return true;
     }
@@ -118,11 +122,19 @@ class TaskStoreUpdate extends FormRequest {
     public function failedValidation(Validator $validator) {
 
         $errors = $validator->errors();
-        $messages = '';
-        foreach ($errors->all() as $message) {
-            $messages .= "<li>$message</li>";
-        }
 
-        abort(409, $messages);
+        // if($this->is_api){
+        //     return response()->json([
+        //         'errors'=>$errors->all(),
+        //         'tasks' => ['success'=>'Task Created Successfully']
+        //     ],409);
+        // }else{
+            $messages = '';
+            foreach ($errors->all() as $message) {
+                $messages .= "<li>$message</li>";
+            }
+    
+            abort(409, $messages);
+        // }
     }
 }

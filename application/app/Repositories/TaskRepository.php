@@ -280,6 +280,7 @@ class TaskRepository {
 
             //filter my tasks (using the actions button)
             if (request()->filled('filter_my_tasks') ) {
+                
                 $tasks->whereHas('assigned', function ($query) {
                     $query->whereIn('tasksassigned_userid', [auth()->id()]);
                 });
