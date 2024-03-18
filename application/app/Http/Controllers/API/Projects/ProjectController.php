@@ -211,18 +211,18 @@ class ProjectController extends Controller {
     /**
      * Display a listing of projects
      * @param object CategoryRepository instance of the repository
-     * @return \Illuminate\Http\Response
-     */
+          */
     public function index(CategoryRepository $categoryrepo) {
+        // dd($categoryrepo);
         //   return request();
-        //get team projects
+        // // get team projects
         // return request('project_client_projectmanager') ;
         
 
-          request()->merge([
-            // 'worklog' => 1,
-            // 'filter_my_projects'=>true,
-        ]);
+        //   request()->merge([
+        //     // 'worklog' => 1,
+        //     // 'filter_my_projects'=>true,
+        // ]);
 
           $projects = $this->projectrepo->search();
 
@@ -263,8 +263,7 @@ class ProjectController extends Controller {
     /**
      * Show the form for creating a new project
      * @param object CategoryRepository instance of the repository
-     * @return \Illuminate\Http\Response
-     */
+          */
     public function create(CategoryRepository $categoryrepo) {
 
         //new project default permissions settings
@@ -308,8 +307,7 @@ class ProjectController extends Controller {
      * @param object MilestoneRepository instance of the repository
      * @param object MilestoneCategoryRepository instance of the repository
      * @param object ProjectManagerRepository instance of the repository
-     * @return \Illuminate\Http\Response
-     */
+          */
     public function store(
         ProjectValidation $request,
         ProjectAssignedRepository $assignedrepo,
@@ -523,8 +521,7 @@ class ProjectController extends Controller {
      * Display the specified project
      * @param object TimerRepository instance of the repository
      * @param int $id project id
-     * @return \Illuminate\Http\Response
-     */
+          */
     public function show(TimerRepository $timerrepo, $id) {
         
         //get the project
@@ -595,8 +592,7 @@ class ProjectController extends Controller {
     /**
      * Display the specified project
      * @param int $id project id
-     * @return \Illuminate\Http\Response
-     */
+          */
     public function showDynamic($id) {
          return 'test';
         //get the project
@@ -672,8 +668,7 @@ class ProjectController extends Controller {
     /**
      * Display the specified project
      * @param int $id project id
-     * @return \Illuminate\Http\Response
-     */
+          */
     public function showCad($id) {
       
         //get the project
@@ -708,8 +703,7 @@ class ProjectController extends Controller {
      * Show the form for editing the specified project
      * @param object CategoryRepository instance of the repository
      * @param int $id project id
-     * @return \Illuminate\Http\Response
-     */
+          */
     public function edit(CategoryRepository $categoryrepo, $id) {
       
         //get the project
@@ -750,8 +744,7 @@ class ProjectController extends Controller {
      * @param object ProjectAssignedRepository instance of the repository
      * @param object ProjectManagerRepository instance of the repository
      * @param int $id project id
-     * @return \Illuminate\Http\Response
-     */
+          */
     public function update(ProjectValidation $request, ProjectAssignedRepository $assignedrepo, ProjectManagerRepository $managerrepo, $id) {
     //   return $request;
         //get project
@@ -945,8 +938,7 @@ class ProjectController extends Controller {
 
     /**
      * Returns false when all is ok
-     * @return \Illuminate\Http\Response
-     */
+          */
     public function customFieldValidationFailed() {
 
         //custom field validation
@@ -970,8 +962,7 @@ class ProjectController extends Controller {
     /**
      * Remove the specified project from storage.
      * @param object DestroyRepository instance of the repository
-     * @return \Illuminate\Http\Response
-     */
+          */
     public function destroy(DestroyRepository $destroyrepo) {
 
         //delete each record in the array
@@ -1002,8 +993,7 @@ class ProjectController extends Controller {
     /**
      * Return ajax details for project
      * @param int $id project id
-     * @return \Illuminate\Http\Response
-     */
+          */
     public function details(CategoryRepository $categoryrepo,$id) {
        
         /*
@@ -1104,8 +1094,7 @@ class ProjectController extends Controller {
 
     /**
      * Show the form for changing a projects status
-     * @return \Illuminate\Http\Response
-     */
+          */
     public function changeStatus() {
 
         //get the project
@@ -1124,8 +1113,7 @@ class ProjectController extends Controller {
      * Stop all the timers on this project
      * @param object TimerRepository instance of the repository
      * @param int $id project id
-     * @return \Illuminate\Http\Response
-     */
+          */
     public function stopAllTimers(TimerRepository $timerepo, $id) {
 
         //stop all running timers for this project
@@ -1147,8 +1135,7 @@ class ProjectController extends Controller {
      * Archive a project
      * @param object TimerRepository instance of the repository
      * @param int $id project id
-     * @return \Illuminate\Http\Response
-     */
+          */
     public function archive($id) {
 
         //get project and update status
@@ -1177,8 +1164,7 @@ class ProjectController extends Controller {
      * Activate a project
      * @param object TimerRepository instance of the repository
      * @param int $id project id
-     * @return \Illuminate\Http\Response
-     */
+          */
     public function activate($id) {
 
         //get project and update status
@@ -1205,8 +1191,7 @@ class ProjectController extends Controller {
 
     /**
      * change status project status
-     * @return \Illuminate\Http\Response
-     */
+          */
     public function changeStatusUpdate() {
         // return request();
         //validate the project exists
@@ -1313,8 +1298,7 @@ class ProjectController extends Controller {
     }
  /**
      * change status project status
-     * @return \Illuminate\Http\Response
-     */
+          */
     public function changeCadStatusUpdate(CategoryRepository $categoryrepo) {
 
         //validate the project exists
@@ -1423,8 +1407,7 @@ class ProjectController extends Controller {
     }
     /**
      * update project description and also the tags
-     * @return \Illuminate\Http\Response
-     */
+          */
     public function updateDescription(CategoryRepository $categoryrepo) {
         // return request();
         //get the project
@@ -1484,8 +1467,7 @@ class ProjectController extends Controller {
     /**
      * Show the form for updating the project
      * @param object CategoryRepository instance of the repository
-     * @return \Illuminate\Http\Response
-     */
+          */
     public function changeCategory(CategoryRepository $categoryrepo) {
 
         //get all project categories
@@ -1503,8 +1485,7 @@ class ProjectController extends Controller {
     /**
      * Show the form for updating the project
      * @param object CategoryRepository instance of the repository
-     * @return \Illuminate\Http\Response
-     */
+          */
     public function changeCategoryUpdate(CategoryRepository $categoryrepo) {
 
         //validate the category exists
@@ -1560,8 +1541,7 @@ class ProjectController extends Controller {
     /**
      * Show the form for updating the project
      * @param object CategoryRepository instance of the repository
-     * @return \Illuminate\Http\Response
-     */
+          */
     public function assignedUsers($id) {
 
         //permission
@@ -1592,8 +1572,7 @@ class ProjectController extends Controller {
     /**
      * Show the form for updating the project
      * @param object CategoryRepository instance of the repository
-     * @return \Illuminate\Http\Response
-     */
+          */
     public function assignedUsersUpdate(ProjectAssignedRepository $assignedrepo,ProjectManagerRepository $managerrepo, $id) {
 
         //get the project
@@ -1737,8 +1716,7 @@ class ProjectController extends Controller {
     /**
      * show the form for cloning an project
      * @param object CategoryRepository instance of the repository
-     * @return \Illuminate\Http\Response
-     */
+          */
     public function createClone(CategoryRepository $categoryrepo, $id) {
 
         //get the project
@@ -1763,8 +1741,7 @@ class ProjectController extends Controller {
 
     /**
      * clone the project
-     * @return \Illuminate\Http\Response
-     */
+          */
     public function storeClone(CloneProjectRepository $clonerepo, $id) {
 
         //get the invoice
@@ -1830,8 +1807,7 @@ class ProjectController extends Controller {
 
     /**
      * prefill the project using the project template data
-     * @return \Illuminate\Http\Response
-     */
+          */
     public function prefillProject() {
 
         //get the template
@@ -1859,8 +1835,7 @@ class ProjectController extends Controller {
      * show form to update progress
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+          */
     public function changeProgress($id) {
 
         //check if file exists in the database
@@ -1881,8 +1856,7 @@ class ProjectController extends Controller {
      * show form to update progress
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+          */
     public function changeProgressUpdate($id) {
 
         //check if file exists in the database
@@ -1917,8 +1891,7 @@ class ProjectController extends Controller {
     /**
      * show the form to change the cover image
      *
-     * @return \Illuminate\Http\Response
-     */
+          */
     public function changeCoverImage($id) {
 
         //check if file exists in the database
@@ -1946,8 +1919,7 @@ class ProjectController extends Controller {
      * save new image
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+          */
     public function changeCoverImageUpdate(FileRepository $filerepo, $id) {
 
         //upload data
@@ -2245,8 +2217,7 @@ class ProjectController extends Controller {
     /**
      * Display a listing of projects
      * @param object CategoryRepository instance of the repository
-     * @return \Illuminate\Http\Response
-     */
+          */
     public function cad_jobs(CategoryRepository $categoryrepo) {
         // return config('visibility.modules.cads');
          //validate module status
@@ -2305,8 +2276,7 @@ class ProjectController extends Controller {
  /**
      * Display a listing of projects
      * @param object CategoryRepository instance of the repository
-     * @return \Illuminate\Http\Response
-     */
+          */
     public function cad_jobs_history(CategoryRepository $categoryrepo,IBankHoliday $bankHoliday) {
 
          //validate module status
@@ -2372,8 +2342,7 @@ class ProjectController extends Controller {
     /**
      * Return ajax details for project
      * @param int $id project id
-     * @return \Illuminate\Http\Response
-     */
+          */
     public function cad_details(CategoryRepository $categoryrepo,$id) {
                //validate module status
          if (auth()->user()->is_team) {

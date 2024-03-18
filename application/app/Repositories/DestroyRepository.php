@@ -277,7 +277,8 @@ class DestroyRepository {
      * @return bool or id of record
      */
     public function destroyTask($task_id) {
-
+        dd($task_id);
+        
         //validate task
         if (!is_numeric($task_id)) {
             Log::error("validation error - invalid params", ['process' => '[destroy][task]', config('app.debug_ref'), 'function' => __function__, 'file' => basename(__FILE__), 'line' => __line__, 'path' => __file__]);

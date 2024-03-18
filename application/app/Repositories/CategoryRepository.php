@@ -33,6 +33,7 @@ class CategoryRepository {
      * @return object
      */
     public function get($type = '') {
+        dd($type);
 
         //new object
         $query = $this->categories->newQuery();

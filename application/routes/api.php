@@ -34,11 +34,14 @@ use Illuminate\Http\Request;
 |
 */
 
-// Route::get("/login", "Authenticate@logIn")->name('login');
+// Route::get("/login", function(){
+//     dd("jhg");
+// })->name('login');
 // Route::post("/login", "Authenticate@logInAction");
 
-Route::post('test', [AuthenticateController::class, 'LoginAction'])->name('test');
 Route::post('login', [AuthenticateController::class, 'loginUser'])->name('login');
+
+Route::post('test', [AuthenticateController::class, 'LoginAction'])->name('test');
 Route::get('check', [HomeController::class, 'index'])->name('check');
 
 Route::middleware('auth:sanctum')->get('dashboard', [HomeController::class, 'index'])->name('dashboard');
@@ -143,9 +146,14 @@ Route::group(['middleware' => ["auth:sanctum" ],'prefix' => 'tasks'], function (
 
     Route::post('/store-task', [TaskController::class, 'store']);
     Route::post('update-task/{id}', [StatusController::class, 'update_task_status']);
+
     Route::get('task/{id?}', [TaskController::class, 'indexUnAllocated']);
     Route::post("task/{task}/update-status", [TaskController::class,"updateStatus"]);
-    Route::post('/delete', [TaskController::class, 'destroy']);
+    
+    Route::delete('/delete/{task}', [TaskController::class, 'destroy']);
+    // Route::post('/delete',function(){
+    //     dd('nkgk');
+    // });
 
        // Route::middleware('auth:sanctum')->post('/store', [TaskController::class, 'store']);
     // Route::middleware('auth:sanctum')->post('update-task/{id}', [StatusController::class, 'update_task_status'])->name('update-task');
