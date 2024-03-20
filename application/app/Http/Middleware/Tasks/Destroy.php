@@ -52,6 +52,7 @@ class Destroy {
             request()->merge([
                 'ids' => $ids,
             ]);
+            
         }
 
         //loop through each task and check permissions

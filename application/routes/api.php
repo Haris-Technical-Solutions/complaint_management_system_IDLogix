@@ -7,7 +7,6 @@ use App\Http\Controllers\API\Home\TestController;
 use App\Http\Controllers\API\Projects\ProjectController;
 use App\Http\Controllers\API\Event\EventController;
 use App\Http\Controllers\API\Contacts\ContactController;
-
 use App\Http\Controllers\API\Leave\LeaveController;
 use App\Http\Controllers\API\Status\StatusController;
 
@@ -135,31 +134,42 @@ Route::group(['middleware' => ["auth:sanctum",  ],'prefix' => 'comments'], funct
 
 //NOTES
 Route::group(['middleware' => ["auth:sanctum",  ],'prefix' => 'notes'], function () {
-      Route::post("/store", "API\Notes\Notes@store");
+      Route::post("/note-store", "API\Notes\Notes@store");
+    // Route::post("/note-store",function(){
+    //     return "aaaaaaaa";
+    // });
+
+
+
+      Route::get("/{id}", "API\Notes\Notes@show");
+
     Route::any("/search", "API\Notes\Notes@index");
     Route::post("/delete", "API\Notes\Notes@destroy")->middleware(['demoModeCheck']);
 });
 
 
 // Tasks
-Route::group(['middleware' => ["auth:sanctum" ],'prefix' => 'tasks'], function () {
+Route::group(['middleware' => ["auth:sanctum" ], 'prefix' => 'tasks'], function () {
 
-    Route::post('/store-task', [TaskController::class, 'store']);
-    Route::post('update-task/{id}', [StatusController::class, 'update_task_status']);
-
-    Route::get('task/{id?}', [TaskController::class, 'indexUnAllocated']);
-    Route::post("task/{task}/update-status", [TaskController::class,"updateStatus"]);
+    Route::post('/store', [TaskController::class, 'store']);
+  
+    Route::post("/update-status/{task}", [TaskController::class,"updateStatus"]);
+ 
+    Route::post('update/{id}', [StatusController::class,'update_task_status']);
     
-    Route::delete('/delete/{task}', [TaskController::class, 'destroy']);
-    // Route::post('/delete',function(){
-    //     dd('nkgk');
-    // });
+    Route::get('/{id?}', [TaskController::class, 'singletask']);
 
-       // Route::middleware('auth:sanctum')->post('/store', [TaskController::class, 'store']);
-    // Route::middleware('auth:sanctum')->post('update-task/{id}', [StatusController::class, 'update_task_status'])->name('update-task');
-    // Route::middleware('auth:sanctum')->get('task/{id?}', [TaskController::class, 'indexUnAllocated'])->name('task');
-    // Route::middleware('auth:sanctum')->post("task/{task}/update-status", [TaskController::class,"updateStatus"]);
-    // Route::middleware('auth:sanctum')->post('/delete', [TaskController::class, 'destroy'])->name('destroy');
+    Route::get('/all', [TaskController::class, 'indexList']);
+
+    Route::post("/{task}/update-status", [TaskController::class,"updateStatus"]);
+
+    Route::delete('/delete/{task}', [TaskController::class, 'destroy']);
+   
+
+    // Route::post('update-task/{id}',"TaskController@update_task_status");
+    // Route::get('/{id?}',"TaskController@indexUnAllocated");
+    // Route::post("/{task}/update-status", "TaskController@updateStatus");
+    // Route::post('/delete', "TaskController@destroy");
 
 
 });

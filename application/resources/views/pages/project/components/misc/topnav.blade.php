@@ -4,7 +4,7 @@
         <ul data-modular-id="project_tabs_menu" class="nav nav-tabs profile-tab project-top-nav list-pages-crumbs"
             role="tablist">
             
-            <!--[tasks]-->
+            <!--[tasks]--->
             @if(config('settings.project_permissions_view_tasks'))
             <li class="nav-item">
                 <a class="nav-link tabs-menu-item   js-dynamic-url js-ajax-ux-request" data-toggle="tab"

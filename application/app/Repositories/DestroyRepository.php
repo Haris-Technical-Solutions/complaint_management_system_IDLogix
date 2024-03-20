@@ -277,7 +277,7 @@ class DestroyRepository {
      * @return bool or id of record
      */
     public function destroyTask($task_id) {
-        dd($task_id);
+        // dd($task_id);
         
         //validate task
         if (!is_numeric($task_id)) {
