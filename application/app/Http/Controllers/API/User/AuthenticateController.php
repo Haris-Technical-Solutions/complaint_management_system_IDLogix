@@ -53,6 +53,7 @@ class AuthenticateController extends Controller
 
     public function loginUser(Request $request)
     {
+     
          //  return $request;
         $validator = Validator::make($request->all(), [
             'email' => 'required|email',

@@ -276,7 +276,7 @@ class TaskController extends Controller {
         ]);
 
         $this->middleware('tasksMiddlewareDestroy')->only([
-            'destroy',
+            // 'destroy',
         ]);
 
         $this->middleware('tasksMiddlewareAssign')->only([
@@ -948,7 +948,7 @@ class TaskController extends Controller {
      * @param object DestroyRepository instance of the repository
           */
     public function destroy(DestroyRepository $destroyrepo) {
-
+      
         //delete each record in the array
         $allrows = array();
         foreach (request('ids') as $id => $value) {
