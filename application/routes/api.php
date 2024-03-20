@@ -159,7 +159,10 @@ Route::group(['middleware' => ["auth:sanctum" ], 'prefix' => 'tasks'], function 
     
     Route::get('/{id?}', [TaskController::class, 'singletask']);
 
-    Route::get('/all', [TaskController::class, 'indexList']);
+    Route::get('/all/data', [TaskController::class, 'indexList']);
+    
+    Route::get("/all/status", [TaskController::class,"getStatus"]);
+
 
     Route::post("/{task}/update-status", [TaskController::class,"updateStatus"]);
 

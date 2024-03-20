@@ -334,7 +334,7 @@ class TaskController extends Controller {
      * Display a listing of tasks
           */
     public function indexList() {
-        dd('$tasks');
+        // dd('$tasks');
 
         //defaults
         $milestones = [];
@@ -346,7 +346,8 @@ class TaskController extends Controller {
         //     ]);
         //get tasks
         $tasks = $this->taskrepo->search('',$data);
-        dd($tasks);
+        // dd($tasks);
+        return response()->json($tasks);
 
         //count rows
         $count = $tasks->total();
@@ -355,7 +356,7 @@ class TaskController extends Controller {
         // $this->processTasks($tasks);
 
         //Worklog Assigned/UnAssigned
-        $worklog =  @request('worklog')==''?'All':request('worklog');
+        // $worklog =  @request('worklog')==''?'All':request('worklog');
 
         //apply some permissions
         // if ($tasks) {
@@ -365,41 +366,49 @@ class TaskController extends Controller {
         // }
 
         //basic page settings
-        $page = $this->pageSettings('tasks', ['count' => $count,'worklog'=>$worklog]);
+        // $page = $this->pageSettings('tasks', ['count' => $count,'worklog'=>$worklog]);
 
         //page setting for embedded view
-        if (request('source') == 'ext') {
-            $page = $this->pageSettings('ext', ['count' => $count]);
-        }
+        // if (request('source') == 'ext') {
+        //     $page = $this->pageSettings('ext', ['count' => $count]);
+        // }
 
         //get all tags (type: lead) - for filter panel
-        $tags = $this->tagrepo->getByType('task');
+        // $tags = $this->tagrepo->getByType('task');
 
         //all available lead statuses
         $statuses = \App\Models\TaskStatus::all();
       
         //get all milestones if viewing from project page (for use in filter panel)
-        if (request()->filled('taskresource_id') && request('taskresource_type') == 'project') {
-            $milestones = \App\Models\Milestone::Where('milestone_projectid', request('taskresource_id'))->get();
+        // if (request()->filled('taskresource_id') && request('taskresource_type') == 'project') {
+        //     $milestones = \App\Models\Milestone::Where('milestone_projectid', request('taskresource_id'))->get();
             
-            // config(['system.settings_tasks_kanban_client_name' => 'hide']);
-                    //   return  config('system.settings_tasks_kanban_client_name');
-        }
-        dd($tasks);
+        //     // config(['system.settings_tasks_kanban_client_name' => 'hide']);
+        //             //   return  config('system.settings_tasks_kanban_client_name');
+        // }
+        // dd($tasks);
         //reponse payload
-        $payload = [
-            // 'page' => $page,
-            // 'milestones' => $milestones,
-            'tasks' => $tasks,
-            // 'stats' => $stats,
-            // 'tags' => $tags,
-            // 'statuses' => $statuses,
-            // 'worklog' => $worklog,
-        ];
+        // $payload = [
+        //     // 'page' => $page,
+        //     // 'milestones' => $milestones,
+        //     'tasks' => $tasks,
+        //     // 'stats' => $stats,
+        //     // 'tags' => $tags,
+        //     // 'statuses' => $statuses,
+        //     // 'worklog' => $worklog,
+        // ];
 
         //show the view
         return $payload;
     }
+     
+    // get All task status
+     public function getStatus(){
+        // dd('aaaaa');
+        $Allstatus = \App\Models\TaskStatus::all();
+        // dd($Allstatus);
+        return response()->json($Allstatus);
+     }
 
     /**
      * Display a listing of tasks
@@ -518,7 +527,7 @@ class TaskController extends Controller {
 
     /**
      * Show the form for creating a new task
-     * @param object CategoryRepository instance of the repository
+     *  CategoryRepository instance of the repository
           */
     public function create(CategoryRepository $categoryrepo) {
 
@@ -565,7 +574,7 @@ class TaskController extends Controller {
      *   - if they are being used in the 'edit' modal form, also get the current data
      *     from the cliet record. Store this temporarily in '$field->customfields_name'
      *     this will then be used to prefill data in the custom fields
-     * @param model client model - only when showing the edit modal form
+     *  client model - only when showing the edit modal form
      *  collection
      */
     public function getCustomFields($obj = '') {
@@ -595,8 +604,8 @@ class TaskController extends Controller {
 
     /**
      * Store a newly created task in storage.
-     * @param object TaskStoreUpdate instance of the request validation object
-     * @param object TaskAssignedRepository instance of the repository
+     *  TaskStoreUpdate instance of the request validation object
+     *  TaskAssignedRepository instance of the repository
           */
 
     public function store(TaskStoreUpdateApi $request, TaskAssignedRepository $assignedrepo) {
@@ -816,11 +825,11 @@ class TaskController extends Controller {
 
     /**
      * Display the specified task
-     * @param object TaskAssignedRepository instance of the repository
-     * @param object ProjectAssignedRepository instance of the repository
-     * @param object CommentRepository instance of the repository
-     * @param object AttachmentRepository instance of the repository
-     * @param object ChecklistRepository instance of the repository
+     *  TaskAssignedRepository instance of the repository
+     *  ProjectAssignedRepository instance of the repository
+     *  CommentRepository instance of the repository
+     *  AttachmentRepository instance of the repository
+     *  ChecklistRepository instance of the repository
      * @param int $id task id
           */
     public function show(
@@ -958,7 +967,7 @@ class TaskController extends Controller {
 
     /**
      * Remove the specified task from storage.
-     * @param object DestroyRepository instance of the repository
+     *  DestroyRepository instance of the repository
           */
     public function destroy(DestroyRepository $destroyrepo) {
       
@@ -1156,7 +1165,7 @@ class TaskController extends Controller {
      * check the task for the following:
      *    1. Check if task is assigned to me - add 'assigned_to_me' (yes/no) attribute
      *    2. check if there are any running timers on the tasks - add 'running_timer' (yes/no)
-     * @param object task instance of the task model object
+     *  task instance of the task model object
      *  object
      */
     private function processTask($task = '') {
@@ -1353,7 +1362,7 @@ class TaskController extends Controller {
 
     /**
      * update task status
-     * @param object ProjectPermissions instance of the repository
+     *  ProjectPermissions instance of the repository
      * @param int $id task id
           */
     public function updateStatus(ProjectPermissions $projectpermissions, $id) {
@@ -1699,7 +1708,7 @@ class TaskController extends Controller {
 
     /**
      * update task assigned users
-     * @param object TaskAssignedRepository instance of the repository
+     *  TaskAssignedRepository instance of the repository
      * @param int $id task id
           */
     public function updateAssigned(TaskAssignedRepository $assignedrepo, $id) {
@@ -1880,7 +1889,7 @@ class TaskController extends Controller {
 
     /**
      * save task comment
-     * @param object CommentRepository instance of the repository
+     *  CommentRepository instance of the repository
           */
     public function storeComment(CommentRepository $commentrepo, $id) {
 
@@ -1973,7 +1982,7 @@ class TaskController extends Controller {
 
     /**
      * store checklist
-     * @param object ChecklistRepository instance of the repository
+     *  ChecklistRepository instance of the repository
      *  object
      */
     public function StoreChecklist(ChecklistRepository $checklistrepo, $id) {
@@ -2039,7 +2048,7 @@ class TaskController extends Controller {
 
     /**
      * update a task checklist
-     * @param object ChecklistRepository instance of the repository
+     *  ChecklistRepository instance of the repository
      * @param int $id task id
           */
     public function UpdateChecklist(ChecklistRepository $checklistrepo, $id) {
@@ -2181,8 +2190,8 @@ class TaskController extends Controller {
 
     /**
      * save an uploaded file
-     * @param object Request instance of the request object
-     * @param object AttachmentRepository instance of the repository
+     *  Request instance of the request object
+     *  AttachmentRepository instance of the repository
      * @param int $id task id
      */
     public function attachFiles(Request $request, AttachmentRepository $attachmentrepo, $id) {
@@ -2400,8 +2409,8 @@ public function showAttachments(AttachmentRepository $attachmentrepo, $id) {
 
     /**
      * delete a task comment
-     * @param object DestroyRepository instance of the repository
-     * @param object Comment instance of the comment model object
+     *  DestroyRepository instance of the repository
+     *  Comment instance of the comment model object
      * @param int $id task id
           */
     public function deleteComment(DestroyRepository $destroyrepo, Comment $comment, $id) {
@@ -2421,8 +2430,8 @@ public function showAttachments(AttachmentRepository $attachmentrepo, $id) {
 
     /**
      * delete checklist
-     * @param object Checklist instance of the request object
-     * @param object ChecklistRepository instance of the repository
+     *  Checklist instance of the request object
+     *  ChecklistRepository instance of the repository
      * @param int $id task id
           */
     public function deleteChecklist(Checklist $checklist, ChecklistRepository $checklistrepo) {
@@ -2457,8 +2466,8 @@ public function showAttachments(AttachmentRepository $attachmentrepo, $id) {
 
     /**
      * delete checklist
-     * @param object Checklist instance of the request validation object
-     * @param object ChecklistRepository instance of the repository
+     *  Checklist instance of the request validation object
+     *  ChecklistRepository instance of the repository
      * @param int $id task id
           */
     public function toggleChecklistStatus(Checklist $checklist, ChecklistRepository $checklistrepo) {
@@ -2493,7 +2502,7 @@ public function showAttachments(AttachmentRepository $attachmentrepo, $id) {
 
     /**
      * create the checklists progress bar data
-     * @param object checklists instance of the checklists model object
+     *  checklists instance of the checklists model object
      *  object
      */
     private function checklistProgress($checklists) {
@@ -2524,7 +2533,7 @@ public function showAttachments(AttachmentRepository $attachmentrepo, $id) {
 
     /**
      * apply permissions.
-     * @param object $task instance of the task model object
+     *  $task instance of the task model object
      *  object
      */
     private function applyPermissions($task = '') {
@@ -2569,7 +2578,7 @@ public function showAttachments(AttachmentRepository $attachmentrepo, $id) {
 
     /**
      * apply permissions to each comment
-     * @param object $comment instance of the comment model object
+     *  $comment instance of the comment model object
      *  object
      */
     private function applyCommentPermissions($comment = '') {
@@ -2583,7 +2592,7 @@ public function showAttachments(AttachmentRepository $attachmentrepo, $id) {
 
     /**
      * apply permissions to each attachment
-     * @param object $attachment instance of the attachment model object
+     *  $attachment instance of the attachment model object
      *  object
      */
     private function applyAttachmentPermissions($attachment = '') {
@@ -2597,7 +2606,7 @@ public function showAttachments(AttachmentRepository $attachmentrepo, $id) {
 
     /**
      * apply permissions to each checklist
-     * @param object $checklist instance of the checklist model object
+     *  $checklist instance of the checklist model object
      *  object
      */
     private function applyChecklistPermissions($checklist = '') {
@@ -2745,7 +2754,7 @@ public function showAttachments(AttachmentRepository $attachmentrepo, $id) {
 
     /**
      * Archive a task
-     * @param object TimerRepository instance of the repository
+     *  TimerRepository instance of the repository
      * @param int $id task id
           */
     public function archive($id) {
@@ -2774,7 +2783,7 @@ public function showAttachments(AttachmentRepository $attachmentrepo, $id) {
 
     /**
      * Activate a task
-     * @param object TimerRepository instance of the repository
+     *  TimerRepository instance of the repository
      * @param int $id task id
           */
     public function activate($id) {
@@ -3209,7 +3218,7 @@ public function showAttachments(AttachmentRepository $attachmentrepo, $id) {
 
     /**
      * Update recurring settings
-     * @param object TaskRecurrringSettings instance of the request validation object
+     *  TaskRecurrringSettings instance of the request validation object
      *   $task task id
           */
     public function recurringSettingsUpdate(TaskRecurrringSettings $request, $id) {
