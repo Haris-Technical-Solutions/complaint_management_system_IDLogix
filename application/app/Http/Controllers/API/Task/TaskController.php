@@ -302,12 +302,23 @@ class TaskController extends Controller {
             return new IndexKanbanResponse($payload);
         }
     }
+
+
+
+
+    public function singletask($filter_unassigned = null) {
+        if ($filter_unassigned !== null && is_numeric($filter_unassigned)){
+            $singleTask = Task::find($filter_unassigned);
+            return $singleTask;
+        }
+        return null;
+    }
     public function indexUnAllocated($filter_unassigned=null) {
         // request()->merge([
         //     'worklog' => $filter_unassigned,
         // ]);
        
-       return $payload = $this->indexList();       
+       return $this->indexList();       
         // if (auth()->user()->pref_view_tasks_layout == 'list') {
             
         //     $payload = $this->indexList();
@@ -323,6 +334,7 @@ class TaskController extends Controller {
      * Display a listing of tasks
           */
     public function indexList() {
+        dd('$tasks');
 
         //defaults
         $milestones = [];
@@ -334,6 +346,7 @@ class TaskController extends Controller {
         //     ]);
         //get tasks
         $tasks = $this->taskrepo->search('',$data);
+        dd($tasks);
 
         //count rows
         $count = $tasks->total();
@@ -372,7 +385,7 @@ class TaskController extends Controller {
             // config(['system.settings_tasks_kanban_client_name' => 'hide']);
                     //   return  config('system.settings_tasks_kanban_client_name');
         }
-
+        dd($tasks);
         //reponse payload
         $payload = [
             // 'page' => $page,
@@ -599,7 +612,7 @@ class TaskController extends Controller {
             abort(409, $messages);
         }
 
-             request()->merge([
+        request()->merge([
             'task_clientid' => $project->project_clientid,
         ]);
 
@@ -646,7 +659,7 @@ class TaskController extends Controller {
                 'errors'=>[
                     'Task Not Created!',
                 ],
-                'tasks' => ['success'=>'Task Created Successfully']
+                // 'tasks' => ['success'=>'Task Created Successfully']
             ],409);
         }
 
@@ -749,7 +762,7 @@ class TaskController extends Controller {
                 'Task Created!',
            
             ],
-            'payload' => $payload
+            'payload' => $task
         ],200);
         // return response()->json([
         //     $payload
@@ -950,7 +963,22 @@ class TaskController extends Controller {
     public function destroy(DestroyRepository $destroyrepo) {
       
         //delete each record in the array
-        $allrows = array();
+        $allrows = [];
+        // dd(request()->all());
+        $validator = Validator::make(request()->all(), [
+            'ids' => ['required','array'],
+            'ids.*' => ['required'],
+        ]);
+
+        if($validator->fails()) {
+            // return response()->json(['errors' => $validator->errors()], 422);
+            return response()->json([
+                'errors'=> $validator->errors(),
+                // 'tasks' => ['success'=>'Task Created Successfully']
+            ],409);
+        }
+        
+
         foreach (request('ids') as $id => $value) {
 
             //only checked items
@@ -971,7 +999,16 @@ class TaskController extends Controller {
         ];
 
         //generate a response
-        return new DestroyResponse($payload);
+        // return new DestroyResponse($payload);
+
+        return response()->json([
+            'success'=>[
+                'Task Deleted!',
+           
+            ],
+            'payload' => $payload
+        ],200);
+
     }
 
     /**
@@ -1018,8 +1055,8 @@ class TaskController extends Controller {
           */
     public function timerStartTopnav() {
 
-        //get the task and apply permissions
-        $tasks = $this->taskrepo->search($id);
+        //get the task and apply permissions $id
+        $tasks = $this->taskrepo->search();
         $task = $tasks->first();
         $this->applyPermissions($task);
 
@@ -1320,6 +1357,7 @@ class TaskController extends Controller {
      * @param int $id task id
           */
     public function updateStatus(ProjectPermissions $projectpermissions, $id) {
+  
 
         //get the task
         return $tasks = $this->taskrepo->search($id);
@@ -2766,7 +2804,7 @@ public function showAttachments(AttachmentRepository $attachmentrepo, $id) {
     /**
      * show custom fields data
      *
-     * @param  int  $id
+     *   $id
           */
     public function showCustomFields($id) {
 
@@ -2796,7 +2834,7 @@ public function showAttachments(AttachmentRepository $attachmentrepo, $id) {
     /**
      * show custom fields data
      *
-     * @param  int  $id
+     *   $id
           */
     public function editCustomFields($id) {
 
@@ -2826,7 +2864,7 @@ public function showAttachments(AttachmentRepository $attachmentrepo, $id) {
     /**
      * show custom fields data
      *
-     * @param  int  $id
+     *   $id
           */
     public function updateCustomFields($id) {
 
@@ -2869,7 +2907,7 @@ public function showAttachments(AttachmentRepository $attachmentrepo, $id) {
     /**
      * show my notes data
      *
-     * @param  int  $id
+     *   $id
           */
     public function showMyNotes($id) {
 
@@ -2902,7 +2940,7 @@ public function showAttachments(AttachmentRepository $attachmentrepo, $id) {
     /**
      * show my notes data
      *
-     * @param  int  $id
+     *   $id
           */
     public function editMyNotes($id) {
 
@@ -2929,7 +2967,7 @@ public function showAttachments(AttachmentRepository $attachmentrepo, $id) {
     /**
      * delete note
      *
-     * @param  int  $id
+     *   $id
           */
     public function deleteMyNotes($id) {
 
@@ -2956,7 +2994,7 @@ public function showAttachments(AttachmentRepository $attachmentrepo, $id) {
     /**
      * show text editor
      *
-     * @param  int  $id
+     *   $id
           */
     public function createMyNotes($id) {
 
@@ -2982,7 +3020,7 @@ public function showAttachments(AttachmentRepository $attachmentrepo, $id) {
     /**
      * update notes
      *
-     * @param  int  $id
+     *   $id
           */
     public function updateMyNotes($id) {
 
@@ -3024,7 +3062,7 @@ public function showAttachments(AttachmentRepository $attachmentrepo, $id) {
     /**
      * show form for cloning tasks
      *
-     * @param  int  $id
+     *   $id
           */
     public function cloneTask($id) {
 
@@ -3045,7 +3083,7 @@ public function showAttachments(AttachmentRepository $attachmentrepo, $id) {
     /**
      * show form for cloning tasks
      *
-     * @param  int  $id
+     *   $id
           */
     public function cloneStore(ProjectRepository $projectrepo, ProjectPermissions $projectpermissions, TaskAssignedRepository $assignedrepo, $id) {
 
@@ -3076,7 +3114,7 @@ public function showAttachments(AttachmentRepository $attachmentrepo, $id) {
                 $project_list = $projectrepo->usersAssignedAndManageProjects(auth()->id(), 'list');
             }
         } else {
-            $project_list = $rojectrepo->clientsProjects(auth()->user()->clientid, 'list');
+            $project_list = $projectrepo->clientsProjects(auth()->user()->clientid, 'list');
         }
 
         //validate the project is valid for this user
@@ -3140,7 +3178,7 @@ public function showAttachments(AttachmentRepository $attachmentrepo, $id) {
 
     /**
      * Show the form for editing the specified task
-     * @param  int  $task task id
+     *   $task task id
           */
     public function recurringSettings($id) {
 
@@ -3172,7 +3210,7 @@ public function showAttachments(AttachmentRepository $attachmentrepo, $id) {
     /**
      * Update recurring settings
      * @param object TaskRecurrringSettings instance of the request validation object
-     * @param  int  $task task id
+     *   $task task id
           */
     public function recurringSettingsUpdate(TaskRecurrringSettings $request, $id) {
 
@@ -3385,7 +3423,7 @@ public function showAttachments(AttachmentRepository $attachmentrepo, $id) {
     /**
      * show my calander data
      *
-     * @param  int  $id
+     *   $id
           */
      public function showMyCalander( TaskAssignedRepository $assignedrepo) {
 

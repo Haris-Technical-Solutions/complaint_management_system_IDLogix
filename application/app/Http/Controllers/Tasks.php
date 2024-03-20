@@ -3473,4 +3473,60 @@ class Tasks extends Controller {
         //return
         return $stats;
     }
+
+    // task assigned to manager
+    public function add($task_id = '', $user_id = '') {
+        // dd("aaaaaa");
+        $list = [];
+ 
+        //validations
+        if (!is_numeric($task_id)) {
+            Log::error("validation error - invalid params", ['process' => '[TaskAssignedRepository]', config('app.debug_ref'), 'function' => __function__, 'file' => basename(__FILE__), 'line' => __line__, 'path' => __file__]);
+            return $list;
+        }
+
+        //add only to the specified user
+        if (is_numeric($user_id)) {
+            $assigned = new $this->assigned;
+            $assigned->tasksassigned_taskid = $task_id;
+            $assigned->tasksassigned_userid = $user_id;
+            $assigned->save();
+            $list[] = $user_id;
+            //return array of users
+            return $list;
+        }
+
+        //[team] - add each user in the post request
+        if (request()->filled('assigned')) {
+            foreach (request('assigned') as $user) {
+                $assigned = new $this->assigned;
+
+                $assigned->tasksassigned_taskid = $task_id;
+                $assigned->tasksassigned_userid = $user;
+                dd($assigned->all());
+                $assigned->save();
+                //save to list
+                $list[] = $user;
+            }
+        }
+
+        //[client] - add each user in the post request
+        if (request()->filled('assigned-client')) {
+            foreach (request('assigned-client') as $user) {
+                $assigned = new $this->assigned;
+                $assigned->tasksassigned_taskid = $task_id;
+                $assigned->tasksassigned_userid = $user;
+                $assigned->save();
+                //save to list
+                $list[] = $user;
+            }
+        }
+
+        return $list;
+    }
+    
+
+
+
+    
 }

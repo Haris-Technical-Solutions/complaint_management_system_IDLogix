@@ -119,7 +119,7 @@ class Notes extends Controller {
 
         //reponse payload
        return $payload = [
-            'page' => $page,
+            // 'page' => $page,
             'notes' => $notes,
         ];
 
@@ -152,6 +152,7 @@ class Notes extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function store() {
+        // dd("aaaaaaa");
 
         $messages = [];
 
@@ -162,18 +163,18 @@ class Notes extends Controller {
                 new NoTags,
             ],
             'note_description' => 'required',
-            // 'tags' => [
-            //     'bail',
-            //     'nullable',
-            //     'array',
-            //     function ($attribute, $value, $fail) {
-            //         foreach ($value as $key => $data) {
-            //             if (hasHTML($data)) {
-            //                 return $fail(__('lang.tags_no_html'));
-            //             }
-            //         }
-            //     },
-            // ],
+            'tags' => [
+                'bail',
+                'nullable',
+                'array',
+                function ($attribute, $value, $fail) {
+                    foreach ($value as $key => $data) {
+                        if (hasHTML($data)) {
+                            return $fail(__('lang.tags_no_html'));
+                        }
+                    }
+                },
+            ],
         ], $messages);
         
         //errors

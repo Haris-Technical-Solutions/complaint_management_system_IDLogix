@@ -261,6 +261,9 @@ Route::resource('projects', 'Projects');
  
 //TASKS
 Route::group(['prefix' => 'tasks'], function () {
+    
+    Route::get('assingned', "Tasks@add");
+
     Route::any("/search", "Tasks@index");
     Route::any("/timer/{id}/start", "Tasks@timerStart")->where('id', '[0-9]+');
     Route::any("/timer/{id}/stop", "Tasks@timerStop")->where('id', '[0-9]+');

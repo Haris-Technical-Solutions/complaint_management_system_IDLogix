@@ -117,7 +117,7 @@
             </div>
         </div>
       {{--      @endif --}}
-            <!--/#assigned team members-->
+            <!--/#assigned team members--->
 
    
    

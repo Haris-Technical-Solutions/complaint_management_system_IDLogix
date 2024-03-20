@@ -19,6 +19,7 @@ class StatusController extends Controller
     }
 
     public function update_task_status(Request $request, $id){
+        // dd($id);
         //  return $request;
         $cdata = Task::find($id);
         $cdata->task_status = $request->task_status;

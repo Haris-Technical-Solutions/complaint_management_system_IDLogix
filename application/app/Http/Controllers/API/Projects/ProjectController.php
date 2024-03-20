@@ -213,7 +213,7 @@ class ProjectController extends Controller {
      * @param object CategoryRepository instance of the repository
           */
     public function index(CategoryRepository $categoryrepo) {
-        // dd($categoryrepo);
+       
         //   return request();
         // // get team projects
         // return request('project_client_projectmanager') ;
