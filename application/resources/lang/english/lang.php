@@ -155,7 +155,7 @@ return [
     'assigned_to' => "Assigned To",
     'assigned_user_permissions' => "Assigned User's Permissions",
     'assigned_users' => "Assigned Users",
-    'assigned' => "Assigned",
+    'assigned' => "Technician",
     'assigning_users_to_a_task_info' => "Assign complaint to team members assigned to the machine",
     'at' => "At",
     'attach_dettach' => "Attach or Dettach",

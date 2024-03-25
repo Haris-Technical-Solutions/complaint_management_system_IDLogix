@@ -86,7 +86,7 @@ class Create {
             if ($task = \App\Models\Task::Where('task_id', request('commentresource_id'))->first()) {
                 //add some form fields data
                 request()->merge([
-                    'comment_clientid' => $lead->task_clientid,
+                    'comment_clientid' => $task->task_clientid,
                 ]);
             } else {
                 //error not found
@@ -94,6 +94,8 @@ class Create {
                 abort(404);
             }
         }
+
+        
 
     }
 }

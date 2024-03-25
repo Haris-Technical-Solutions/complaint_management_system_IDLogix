@@ -63,7 +63,7 @@
                             <th class="projects_col_team"><a
                                     href="javascript:void(0)">{{ cleanLang(__('lang.team')) }}</a></th>
                             @endif
-                            <th class="projects_col_status">
+                            <th class="hidden projects_col_status">
                                 <a class="js-ajax-ux-request js-list-sorting" id="sort_project_status"
                                     href="javascript:void(0)"
                                     data-url="{{ urlResource('/projects?action=sort&orderby=project_status&sortorder=asc') }}">{{ cleanLang(__('lang.status')) }}<span

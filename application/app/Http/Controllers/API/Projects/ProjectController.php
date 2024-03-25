@@ -212,19 +212,21 @@ class ProjectController extends Controller {
      * Display a listing of projects
      * @param object CategoryRepository instance of the repository
           */
-    public function index(CategoryRepository $categoryrepo) {
+    // public function index(CategoryRepository $categoryrepo) {
+    public function indexProjectPaginated($paginated = true) {
        
         //   return request();
         // // get team projects
         // return request('project_client_projectmanager') ;
         
-
+        $stats = $this->statsWidget();
+        $data['apply_filters'] = true;
         //   request()->merge([
         //     // 'worklog' => 1,
         //     // 'filter_my_projects'=>true,
         // ]);
 
-          $projects = $this->projectrepo->search();
+          $projects = $this->projectrepo->search('',$data, $paginated);
 
         //apply some permissions
         if ($projects) {
@@ -238,6 +240,9 @@ class ProjectController extends Controller {
                 $project->fields = $this->getCustomFields($project);
             }
         }
+
+        return response()->json($projects);
+
         //get all categories (type: project) - for filter panel
         $categories = $categoryrepo->get('project');
 
@@ -255,10 +260,35 @@ class ProjectController extends Controller {
         ];
 
         //show the the corretc vew
-            return $payload;
+        return $payload;
        
 
        }
+       public function indexProjectDropdown() {
+   
+           return  $this->indexList(false);
+    }
+
+    public function indexList($paginated = true) {
+
+        //defaults
+        $milestones = [];
+        //get stats before other filters has been applied
+        $stats = $this->statsWidget();
+        $data['apply_filters'] = true;
+   
+        $projects = $this->projectrepo->search('',$data,$paginated);
+        // dd($tasks);
+        return response()->json($projects);
+
+       
+
+        //all available lead statuses
+        $statuses = \App\Models\Project::all();
+      
+    
+        return $payload;
+    }
  
     /**
      * Show the form for creating a new project
@@ -354,6 +384,12 @@ class ProjectController extends Controller {
         //create the project
         if (!$project_id = $this->projectrepo->create()) {
             abort(409);
+
+            // return response()->json([
+            //     'errors'=>[
+            //         'Project Not Created!',
+            //     ],
+            // ],409);
         }
 
         //add tags
@@ -511,6 +547,13 @@ class ProjectController extends Controller {
             'id' => $project_id,
             'count' => $count,
         ];
+        // return response()->json([
+        //     'success'=>[
+        //         'Project Created!',
+           
+        //     ],
+        //     'payload' => $project
+        // ],200);
 
         //process reponse
         return new StoreResponse($payload);

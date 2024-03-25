@@ -275,9 +275,9 @@ class Tasks extends Controller {
         $milestones = [];
         //get stats before other filters has been applied
         $stats = $this->statsWidget();
-        // dd(request());   
+            //  dd(request());   
         //get tasks
-        $tasks = $this->taskrepo->search();
+       $tasks = $this->taskrepo->search();
 
         //count rows
         $count = $tasks->total();
@@ -533,7 +533,7 @@ class Tasks extends Controller {
         if ($messages = $this->customFieldValidationFailed()) {
             abort(409, $messages);
         }
-
+ 
         request()->merge([
             'task_clientid' => $project->project_clientid,
         ]);
@@ -3503,7 +3503,7 @@ class Tasks extends Controller {
 
                 $assigned->tasksassigned_taskid = $task_id;
                 $assigned->tasksassigned_userid = $user;
-                dd($assigned->all());
+                // dd($assigned->all());
                 $assigned->save();
                 //save to list
                 $list[] = $user;

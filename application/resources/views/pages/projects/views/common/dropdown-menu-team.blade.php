@@ -7,7 +7,7 @@
     data-loading-target="actionsModalBody" data-action-method="POST">
     {{ cleanLang(__('lang.change_category')) }}</a>
 <!--change status-->
-<a class="dropdown-item actions-modal-button js-ajax-ux-request reset-target-modal-form" href="javascript:void(0)"
+<a class="hidden dropdown-item actions-modal-button js-ajax-ux-request reset-target-modal-form" href="javascript:void(0)"
     data-toggle="modal" data-target="#actionsModal" data-modal-title="{{ cleanLang(__('lang.change_status')) }}"
     data-url="{{ urlResource('/projects/'.$project->project_id.'/change-status') }}"
     data-action-url="{{ urlResource('/projects/'.$project->project_id.'/change-status?filter_category='.request('filter_category')) }}"

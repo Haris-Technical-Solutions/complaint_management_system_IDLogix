@@ -78,7 +78,10 @@ class User extends Authenticatable {
     public function assignedLeads() {
         return $this->belongsToMany('App\Models\Lead', 'leads_assigned', 'leadsassigned_userid', 'leadsassigned_leadid');
     }
-
+    public static function team_members(){
+        $team_member = User::Where('type', 'team')->Where('status', 'active')->get();
+        return ($team_member);
+    }
     /**
      * The projects that are assigned to the user.
      */
@@ -318,5 +321,7 @@ class User extends Authenticatable {
             $leftJoin->on('clients.client_id', '=', 'users.clientid');
         });
     }
+
+    
 
 }

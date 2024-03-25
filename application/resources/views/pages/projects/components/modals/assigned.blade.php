@@ -14,8 +14,10 @@
             <!--/#array of assigned-->
             <!--users list-->
             @foreach(config('system.team_members') as $user)
-            <option value="{{ $user->id }}" {{ runtimePreselectedInArray($user->id ?? '', $assigned ?? []) }}>{{
-                $user->full_name }}</option>
+            @if($user->role_id==16)
+                <option value="{{ $user->id }}" {{ runtimePreselectedInArray($user->id ?? '', $assigned ?? []) }}>{{
+                    $user->full_name }}</option>
+             @endif
             @endforeach
             <!--/#users list-->
         </select>

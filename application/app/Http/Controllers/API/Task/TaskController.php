@@ -32,8 +32,10 @@ use App\Http\Responses\Tasks\UpdateResponse;
 use App\Http\Responses\Tasks\UpdateStatusResponse;
 use App\Http\Responses\Tasks\UpdateTagsResponse;
 use App\Mail\TaskStatusChanged;
+use App\Models\Assigned;
 use App\Models\Checklist;
 use App\Models\Comment;
+use App\Models\ProjectAssigned;
 use App\Models\Task;
 use App\Models\Timer;
 use App\Permissions\AttachmentPermissions;
@@ -194,10 +196,10 @@ class TaskController extends Controller {
         ]);
 
         //Permissions on methods
-        // $this->middleware('tasksMiddlewareIndex')->only([
-        //     'index',
-        //     'indexUnAllocated',
-        //     'update',
+        $this->middleware('tasksMiddlewareIndex')->only([
+            'index',
+            // 'indexUnAllocated',
+            // 'update',
         //     'toggleStatus',
             // 'store',
         //     'updateStartDate',
@@ -215,7 +217,7 @@ class TaskController extends Controller {
         //     'cloneStore',
         //     'recurringSettingsUpdate',
         //     'stopRecurring',
-        // ]);
+        ]);
 
         $this->middleware('tasksMiddlewareCreate')->only([
             'create',
@@ -292,25 +294,40 @@ class TaskController extends Controller {
     /**
      * Display a listing of tasks
           */
-    public function index() {
-
-        if (auth()->user()->pref_view_tasks_layout == 'list') {
-            $payload = $this->indexList();
-            return new IndexListResponse($payload);
-        } else {
-            $payload = $this->indexKanban();
-            return new IndexKanbanResponse($payload);
-        }
+    public function indexPaginated() {
+        
+        // if (auth()->user()->pref_view_tasks_layout == 'list') {
+           return  $this->indexList();
+        //     return new IndexListResponse($payload);
+        // } else {
+        //     $payload = $this->indexKanban();
+        //     return new IndexKanbanResponse($payload);
+        // }
+    }
+    public function indexDropdown() {
+        
+        // if (auth()->user()->pref_view_tasks_layout == 'list') {
+           return  $this->indexList(false);
+        //     return new IndexListResponse($payload);
+        // } else {
+        //     $payload = $this->indexKanban();
+        //     return new IndexKanbanResponse($payload);
+        // }
     }
 
 
 
 
-    public function singletask($filter_unassigned = null) {
-        if ($filter_unassigned !== null && is_numeric($filter_unassigned)){
-            $singleTask = Task::find($filter_unassigned);
-            return $singleTask;
+    public function singletask($task_id = null) {
+
+        if ($task_id !== null && is_numeric($task_id)){
+            // $singleTask = Task::with('project')->find($task_id);
+            //get the task object (friendly for rendering in blade template)
+        $tasks = $this->taskrepo->search($task_id, ['apply_filters' => false]);
+        $task = $tasks->first();
+            return $task;
         }
+        
         return null;
     }
     public function indexUnAllocated($filter_unassigned=null) {
@@ -333,7 +350,7 @@ class TaskController extends Controller {
     /**
      * Display a listing of tasks
           */
-    public function indexList() {
+    public function indexList($paginated = true) {
         // dd('$tasks');
 
         //defaults
@@ -345,12 +362,13 @@ class TaskController extends Controller {
         //         'filter_my_tasks' => true
         //     ]);
         //get tasks
-        $tasks = $this->taskrepo->search('',$data);
+        // return request();
+        $tasks = $this->taskrepo->search('',$data,$paginated);
         // dd($tasks);
         return response()->json($tasks);
 
         //count rows
-        $count = $tasks->total();
+        // $count = $tasks->total();
 
         //process for timers
         // $this->processTasks($tasks);
@@ -404,11 +422,15 @@ class TaskController extends Controller {
      
     // get All task status
      public function getStatus(){
-        // dd('aaaaa');
         $Allstatus = \App\Models\TaskStatus::all();
-        // dd($Allstatus);
         return response()->json($Allstatus);
      }
+
+    //  single task status
+    public function SingleStatus($id){
+        $status = \App\Models\TaskStatus::find($id);
+        return response()->json($status);
+    }
 
     /**
      * Display a listing of tasks
@@ -772,7 +794,8 @@ class TaskController extends Controller {
            
             ],
             'payload' => $task
-        ],200);
+        ],
+        200);
         // return response()->json([
         //     $payload
         // ]);
@@ -954,17 +977,38 @@ class TaskController extends Controller {
      * @param int $id task id
           */
     public function update($id) {
+        // dd($id);
      
 
         //reponse payload
         $payload = [
             'stats' => $this->statsWidget(),
+
         ];
 
         //process reponse
         return new UpdateResponse($payload);
     }
 
+    // public function update($task_id) {
+    //     $tasks = Task::find($task_id);
+    
+    //     // Check if the task was found
+    //     if (!$tasks) {
+    //         // Task not found, return an error response or handle it accordingly
+    //         return response()->json(['error' => 'Task not found'], 404);
+    //     }
+    
+    //     // Task found, continue processing
+    //     $payload = [
+    //         'stats' => $this->statsWidget(),
+    //         'tasks' => $tasks,
+    //     ];
+    
+    //     return new UpdateResponse($payload);
+    // }
+    
+    
     /**
      * Remove the specified task from storage.
      *  DestroyRepository instance of the repository
@@ -1152,14 +1196,14 @@ class TaskController extends Controller {
      * send each task for processing
      *  null
      */
-    private function processTasks($tasks = '') {
-        //sanity - make sure this is a valid tasks object
-        if ($tasks instanceof \Illuminate\Pagination\LengthAwarePaginator) {
-            foreach ($tasks as $task) {
-                $this->processTask($task);
-            }
-        }
-    }
+    // private function processTasks($tasks = '') {
+    //     //sanity - make sure this is a valid tasks object
+    //     if ($tasks instanceof \Illuminate\Pagination\LengthAwarePaginator) {
+    //         foreach ($tasks as $task) {
+    //             $this->processTask($task);
+    //         }
+    //     }
+    // }
 
     /**
      * check the task for the following:
@@ -1168,7 +1212,19 @@ class TaskController extends Controller {
      *  task instance of the task model object
      *  object
      */
+    public function assignedTask($id) {
+        $task = Task::find($id);
+    
+        if (!$task) {
+            return response()->json(['error' => 'Task not found'], 404);
+        }    
+        $currently_assigned = $task->assigned->pluck('id')->toArray();        
+        return response()->json($currently_assigned);
+    }
+    
+
     private function processTask($task = '') {
+        // dd($task);
 
         //sanity - make sure this is a valid task object
         if ($task instanceof \App\Models\Task) {
@@ -1730,7 +1786,7 @@ class TaskController extends Controller {
 
         //validation - data type
         if (request()->filled('assigned') && !is_array(request('assigned'))) {
-            return new UpdateResponse([
+            $response =[
                 'type' => 'update-assigned',
                 'tasks' => $tasks,
                 'task' => $task,
@@ -1738,7 +1794,8 @@ class TaskController extends Controller {
                 'milestones' => $milestones,
                 'error' => true,
                 'message' => __('lang.request_is_invalid'),
-            ]);
+            ];
+            return response()->json($response);
         }
 
         //validate users exist
@@ -1747,7 +1804,7 @@ class TaskController extends Controller {
                 if ($value == 'on') {
                     //validate user exists
                     if (\App\Models\User::Where('id', $user_id)->doesntExist()) {
-                        return new UpdateResponse([
+                        $response =[
                             'type' => 'update-assigned',
                             'tasks' => $tasks,
                             'task' => $task,
@@ -1755,7 +1812,8 @@ class TaskController extends Controller {
                             'milestones' => $milestones,
                             'error' => true,
                             'message' => __('lang.assiged_user_not_found'),
-                        ]);
+                        ];
+                        return response()->json($response);
                     }
 
                 }
@@ -1853,7 +1911,7 @@ class TaskController extends Controller {
         ];
 
         //process reponse
-        return new UpdateResponse($payload);
+        return response()->json($payload);
     }
 
     /**
@@ -2319,7 +2377,7 @@ class TaskController extends Controller {
             ];
 
             //show the form
-            return new AttachFilesResponse($payload);
+            return response()->json($payload);
         }
     }
 
@@ -2536,7 +2594,7 @@ public function showAttachments(AttachmentRepository $attachmentrepo, $id) {
      *  $task instance of the task model object
      *  object
      */
-    private function applyPermissions($task = '') {
+    public function applyPermissions($task = '') {
 
         //sanity - make sure this is a valid task object
         if ($task instanceof \App\Models\Task) {
@@ -3491,7 +3549,8 @@ public function showAttachments(AttachmentRepository $attachmentrepo, $id) {
                       $cal_task->calander_id = "".(1000000 + $user->id);
                        
                       //  $cal_task->duration = 0.01;
-                        //$cal_task->progress = 0;
+                        //
+                        $cal_task->progress = 0;
                         $cal_task->text = $user->first_name .' '.$user->last_name;
                         $cal_task->name = $user->first_name.' '.$user->last_name;
                        

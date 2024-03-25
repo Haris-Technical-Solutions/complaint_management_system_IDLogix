@@ -34,7 +34,7 @@ class ProjectRepository {
      * @param array $data optional data payload
      * @return object project collection
      */
-    public function search($id = '', $data = []) {
+    public function search($id = '', $data = [], $pagination = true) {
 
         $projects = $this->projects->newQuery();
 
@@ -343,6 +343,10 @@ class ProjectRepository {
             'count-completed',
         ])) {
             return $projects->count();
+        }
+        
+        if(!$pagination){
+            return $projects->get();
         }
 
         // Get the results and return them.

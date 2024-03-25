@@ -13,6 +13,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Responses\Comments\DestroyResponse;
 use App\Http\Responses\Comments\IndexResponse;
 use App\Http\Responses\Comments\StoreResponse;
+use App\Models\Comment;
 use App\Permissions\CommentPermissions;
 use App\Permissions\ProjectPermissions;
 use App\Repositories\CommentRepository;
@@ -97,7 +98,7 @@ class CommentsController extends Controller {
         ]);
 
         $this->middleware('commentsMiddlewareCreate')->only([
-            'store',
+            // 'store',
         ]);
 
         $this->middleware('commentsMiddlewareDestroy')->only([
@@ -123,8 +124,42 @@ class CommentsController extends Controller {
 
     /**
      * Display a listing of comments
-     * @return \Illuminate\Http\Response
-     */
+         */
+// single id comment
+
+// public function singleComment($comment_id = null) {
+
+//     if ($comment_id !== null && is_numeric($comment_id)){
+//         $comment = $this->commentrepo->search($comment_id);
+
+//         if (!$comment) {
+//             return response()->json(['error' => 'Comment not found'], 404);
+//         }
+
+//         if (!$this->userCanViewComment($comment)) {
+//             return response()->json(['error' => 'Unauthorized'], 403);
+//         }
+
+//         if (request()->filled('commentresource_type') && request()->filled('commentresource_id')) {
+//             \App\Models\EventTracking::where('resource_id', request('commentresource_id'))
+//                 ->where('resource_type', request('commentresource_type'))
+//                 ->where('eventtracking_userid', auth()->id())
+//                 ->update(['eventtracking_status' => 'read']);
+//         }
+
+//         // Response payload
+//         $payload = [
+//             'page' => $this->pageSettings('comments'),
+//             'comment' => $comment, // Return the single comment
+//         ];
+
+//         // Return the payload
+//         return response()->json($payload);
+//     }
+    
+//     return null;
+// }
+
     public function index() {
       
         $comments = $this->commentrepo->search();
@@ -156,10 +191,8 @@ class CommentsController extends Controller {
 
     /**
      * Store a newly created comment in storage.
-     * @return \Illuminate\Http\Response
-     */
+         */
     public function store() {
-        
         //basic page settings
         $page = $this->pageSettings('comments');
 
@@ -181,7 +214,12 @@ class CommentsController extends Controller {
 
         //create the item
         if (!$comment_id = $this->commentrepo->create()) {
-            abort(409, __('lang.error_request_could_not_be_completed'));
+            // abort(409, __('lang.error_request_could_not_be_completed'));
+            return response()->json([
+                'errors'=>[
+                    'Comment Not Created!',
+                ],
+            ],409);
         }
 
         //get comments
@@ -237,10 +275,17 @@ class CommentsController extends Controller {
             }
         }
 
-       return $payload = [
+        $payload = [
             'page' => $page,
             'comments' => $comments,
         ];
+        return response()->json([
+            'success'=>[
+                'Comment Created!',
+           
+            ],
+            'payload' => $comment
+        ],200);
 
         //show the view
         return new StoreResponse($payload);
@@ -250,9 +295,9 @@ class CommentsController extends Controller {
      * Remove the specified comment from storage.
      * @param object DestroyRepository instance of the repository
      * @param int $id comment id
-     * @return \Illuminate\Http\Response
-     */
+         */
     public function destroy(DestroyRepository $destroyrepo, $id) {
+        // dd($id);
 
         //delete comment
         $destroyrepo->destroyComment($id);

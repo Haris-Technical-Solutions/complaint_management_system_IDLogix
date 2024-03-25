@@ -48,13 +48,14 @@ class Index {
      * @return mixed
      */
     public function handle($request, Closure $next) {
-       
+      
         //validate module status
-        if (!config('visibility.modules.tasks')) {
+        if (!config('visibility.modules.tasks') &&  !$request->route()->getPrefix() === 'api') {
             abort(404, __('lang.the_requested_service_not_found'));
             return $next($request);
         }
-
+     
+       
         //various frontend and visibility settings
         $this->fronteEnd();
 
@@ -71,7 +72,7 @@ class Index {
 
         //toggle layout
         $this->toggleKanbanView();
-
+        
         //[limit] - for users with only local level scope
         if (auth()->user()->is_team) {
             if (auth()->user()->role->role_tasks_scope == 'own' && auth()->user()->role_id != 17 ) {

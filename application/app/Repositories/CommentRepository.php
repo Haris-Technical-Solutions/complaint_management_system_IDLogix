@@ -27,6 +27,7 @@ class CommentRepository {
         $this->comments = $comments;
     }
 
+
     /**
      * Search model
      * @param int $id optional for getting a single, specified record

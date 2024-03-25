@@ -17,6 +17,8 @@
     </div>
 </div>
 @endif
+<div class=""><small><strong>@lang('Complain #'): </strong></small><small id="card-task-complain-no"><a
+    href="#">{{ $task->task_custom_field_1 ?? '---' }}</a></small></div>
 <div class=""><small><strong>@lang('lang.project'): </strong></small><small id="card-task-milestone-title"><a
             href="{{ url('projects/'.$task->project_id ?? '') }}">{{ $task->project_title ?? '---' }}</a></small></div>
 <div class="hidden m-b-15"><small><strong>@lang('lang.milestone'): </strong></small><small

@@ -94,7 +94,7 @@ class TaskFileUploaded extends Mailable {
             'project_id' => $this->obj->project_id,
             'client_name' => $this->obj->client_company_name,
             'client_id' => $this->obj->client_id,
-            'task_status' => $status,
+            'task_status' => $this->obj->task_status,
             'task_milestone' => $this->obj->milestone_title,
             'task_url' => url('/tasks/v/'.$this->obj->task_id.'/view'),
         ];

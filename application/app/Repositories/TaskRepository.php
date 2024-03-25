@@ -35,7 +35,7 @@ class TaskRepository {
      * @param int $id optional for getting a single, specified record
      *  object task collection
      */
-    public function search($id = '', $data = []) {
+    public function search($id = '', $data = [], $pagination = true) {
 
         $tasks = $this->tasks->newQuery();
 
@@ -386,7 +386,9 @@ class TaskRepository {
         ])) {
             return $tasks->count();
         }
-
+        if(!$pagination){
+            return $tasks->get();
+        }
         // Get the results and return them.
         if (request('query_type') == 'kanban') {
             return $tasks->paginate(config('system.settings_system_kanban_pagination_limits'));
@@ -426,10 +428,17 @@ class TaskRepository {
         $task->task_priority = request('task_priority');
         $task->task_position = $position;
 
+        
+
         //save and return id
         if ($task->save()) {
+            if(!request()->filled('task_custom_field_1'))
+            request()->merge([
+                'task_custom_field_1' => $task->task_id.'-'.date('my'),
+            ]);
             //apply custom fields data
             $this->applyCustomFields($task->task_id);
+            
             return $task->task_id;
         } else {
             Log::error("record could not be saved - database error", ['process' => '[TaskRepository]', config('app.debug_ref'), 'function' => __function__, 'file' => basename(__FILE__), 'line' => __line__, 'path' => __file__]);

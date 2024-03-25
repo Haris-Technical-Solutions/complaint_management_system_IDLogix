@@ -85,7 +85,7 @@
         <!--more users-->
     </td>
     @endif
-    <td class="projects_col_status">
+    <td class="hidden projects_col_status">
         <span
             class="label {{ runtimeProjectStatusColors($project->project_status, 'label') }}">{{ runtimeLang($project->project_status) }}</span>
         <!--archived-->
