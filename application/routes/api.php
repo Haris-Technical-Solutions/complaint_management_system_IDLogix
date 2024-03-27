@@ -46,9 +46,13 @@ Route::get('check', [HomeController::class, 'index'])->name('check');
 Route::middleware('auth:sanctum')->get('dashboard', [HomeController::class, 'index'])->name('dashboard');
 
 Route::middleware('auth:sanctum')->get('team/{id?}', [ProjectController::class, 'team'])->name('job-team');
-Route::middleware('auth:sanctum')->get('all/projects/dropdown', [ProjectController::class, 'indexProjectDropdown']);
+// Route::middleware('auth:sanctum')->get('all/projects/dropdown', [ProjectController::class, 'indexProjectDropdown']);
+Route::middleware('auth:sanctum')->post('all/projects/dropdown', [ProjectController::class, 'indexProjectDropdown']);
 
-Route::middleware('auth:sanctum')->get('paginated/projects/{id?}', [ProjectController::class, 'indexProjectPaginated'])->name('projects');
+// Route::middleware('auth:sanctum')->get('paginated/projects/{id?}', [ProjectController::class, 'indexProjectPaginated'])->name('projects');
+
+Route::middleware('auth:sanctum')->post('paginated/projects/{id?}', [ProjectController::class, 'indexProjectPaginated'])->name('projects');
+
 Route::middleware('auth:sanctum')->get('job-activity/{id?}', [ProjectController::class, 'activity_log'])->name('job-activity');
 
 Route::middleware('auth:sanctum')->get('job-status-detail/{id}', [ProjectController::class, 'showDynamic'])->name('job-status-detail');
@@ -157,20 +161,22 @@ Route::group(['middleware' => ["auth:sanctum" ], 'prefix' => 'tasks'], function 
     // Route::post("/task/{id}", [TaskController::class,'update']);
 
         Route::get("/get/assigned/{id}", [TaskController::class,'assignedTask']);
-       
-        // Route::get('get/assigned/task', function(){
-        //     return ('aaaaaaaaaaa');
-        // });
-      
-    Route::get('/{id?}', [TaskController::class, 'singletask']);
-
-    Route::get('/all/paginated', [TaskController::class, 'indexPaginated']);
-    Route::get('/all/dropdown', [TaskController::class, 'indexDropdown']);
     
+        Route::get('/{id?}', [TaskController::class, 'singletask']);
+
+        // Route::get('/all/paginated', [TaskController::class, 'indexPaginated']);
+        // Route::get('/all/dropdown', [TaskController::class, 'indexDropdown']);
+    
+    
+        Route::post('/all/paginated', [TaskController::class, 'indexPaginated']);
+        Route::post('/all/dropdown', [TaskController::class, 'indexDropdown']);
+    
+
+
     Route::get("/all/status", [TaskController::class,"getStatus"]);
 
     Route::get("/single/status/{id}", [TaskController::class,"SingleStatus"]);
- 
+
     Route::post("/update/{id}", [TaskController::class,"update"]);
 
     Route::post("/{task}/update-status", [TaskController::class,"updateStatus"]);
@@ -180,6 +186,13 @@ Route::group(['middleware' => ["auth:sanctum" ], 'prefix' => 'tasks'], function 
     Route::post("/{task}/update-assigned", [TaskController::class,"updateAssigned"])->where('task', '[0-9]+');
     Route::post("/{task}/attach-files", [TaskController::class,"attachFiles"])->where('task', '[0-9]+');
     
+    Route::get("/{task}/get/attach-files", [TaskController::class,"showAttachments"])->where('task', '[0-9]+');
+  
+
+
+
+
+
     // Route::post('update-task/{id}',"TaskController@update_task_status");
     // Route::get('/{id?}',"TaskController@indexUnAllocated");
     // Route::post("/{task}/update-status", "TaskController@updateStatus");

@@ -325,7 +325,7 @@ class TaskController extends Controller {
             //get the task object (friendly for rendering in blade template)
         $tasks = $this->taskrepo->search($task_id, ['apply_filters' => false]);
         $task = $tasks->first();
-            return $task;
+            return response()->json($task);
         }
         
         return null;
@@ -351,7 +351,7 @@ class TaskController extends Controller {
      * Display a listing of tasks
           */
     public function indexList($paginated = true) {
-        // dd('$tasks');
+        // dd(request());
 
         //defaults
         $milestones = [];
@@ -429,6 +429,8 @@ class TaskController extends Controller {
     //  single task status
     public function SingleStatus($id){
         $status = \App\Models\TaskStatus::find($id);
+        $tasks = $this->taskrepo->search($id, ['apply_filters' => false]);    
+        $status->tasks = $tasks;
         return response()->json($status);
     }
 
@@ -2259,7 +2261,7 @@ class TaskController extends Controller {
 
         //save the file in its own folder in the temp folder
         if ($file = $request->file('file')) {
-
+            
             //defaults
             $file_type = 'file';
 
@@ -2380,6 +2382,7 @@ class TaskController extends Controller {
             return response()->json($payload);
         }
     }
+    
 
 public function showAttachments(AttachmentRepository $attachmentrepo, $id) {
 
@@ -2416,7 +2419,9 @@ public function showAttachments(AttachmentRepository $attachmentrepo, $id) {
         ];
 
         //showing just the tab
-        return new contentResponse($payload);
+        // return new contentResponse($payload);
+        return response()->json($payload);
+
     }
     /**
      * delete task attachment
@@ -2529,10 +2534,10 @@ public function showAttachments(AttachmentRepository $attachmentrepo, $id) {
      * @param int $id task id
           */
     public function toggleChecklistStatus(Checklist $checklist, ChecklistRepository $checklistrepo) {
+        // dd('aaaaaaaa');
 
         //check if file exists in the database
         $checklist = $checklist::find(request()->route('checklistid'));
-
         if (request('card_checklist') == 'on') {
             $checklist->checklist_status = 'completed';
         } else {
@@ -2555,7 +2560,8 @@ public function showAttachments(AttachmentRepository $attachmentrepo, $id) {
         ];
 
         //show the form
-        return new ChecklistResponse($payload);
+        // return new ChecklistResponse($payload);
+        return response()->json($payload);
     }
 
     /**
@@ -2587,6 +2593,7 @@ public function showAttachments(AttachmentRepository $attachmentrepo, $id) {
         }
 
         return $progress;
+        // return response()->json($progress);
     }
 
     /**

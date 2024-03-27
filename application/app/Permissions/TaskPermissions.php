@@ -99,8 +99,11 @@ class TaskPermissions {
                 $assigned_users = $task->assigned->pluck('id');
             }
             //array of project managers for parent project
+           
             if (!isset($project_managers) || $project_managers == '') {
-                $project_managers = $task->projectmanagers->pluck('id');
+              
+                $project_managers = $task->projectmanagers->pluck('projectsmanager_userid');
+                
             }
             //the task project
             if (!isset($project) || $project == '') {
@@ -247,6 +250,7 @@ class TaskPermissions {
                 if ($task->task_creatorid == auth()->id()) {
                     return true;
                 }
+                // dd($project_managers);
                 //project managers of parent project
                 if ($project_managers->contains(auth()->id())) {
                     return true;

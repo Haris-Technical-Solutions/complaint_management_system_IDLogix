@@ -203,7 +203,7 @@ class TaskRepository {
             if (request()->filled('filter_task_milestoneid')) {
                 $tasks->where('task_milestoneid', request('filter_task_milestoneid'));
             }
-
+ 
             //filter: only tasks visible to the client
             if (request()->filled('filter_task_client_visibility')) {
                 $tasks->where('task_client_visibility', request('filter_task_client_visibility'));

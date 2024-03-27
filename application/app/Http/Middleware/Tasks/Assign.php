@@ -52,7 +52,7 @@ class Assign {
         if (auth()->user()->role->role_assign_tasks == 'yes') {
             return $next($request);
         }
-
+        
         //no items were passed with this request
         Log::error("permission denied", ['process' => '[permissions][tasks][assign]', 'ref' => config('app.debug_ref'), 'function' => __function__, 'file' => basename(__FILE__), 'line' => __line__, 'path' => __file__, 'task id' => $task_id ?? '']);
         abort(403);
